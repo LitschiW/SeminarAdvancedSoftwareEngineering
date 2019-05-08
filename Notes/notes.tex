@@ -1,7 +1,7 @@
 \documentclass{article}
 
 \usepackage[numbers,round]{natbib}
-\bibliographystyle{alphadin}
+\bibliographystyle{abbrvnat}
 
 \usepackage[utf8]{inputenc}
 \usepackage[ngerman]{babel}
@@ -12,6 +12,14 @@
 \begin{document}	
 	\tableofcontents 
 	\newpage
+	 \section{Gerneral Notes}
+	 \begin{itemize}
+	 	\item	Measurement Bias is hard to control \cite{PredictingPerformanceAutmatedFeatureDetectionSiegmund2012}
+	 	\item PUMA Tool
+	 	\item Palladio
+	 	\item PLeTsPerf
+	 \end{itemize}
+	
 	\section{Automated Feature Detection}
 	\subsection{Formeln\cite{PredictingPerformanceAutmatedFeatureDetectionSiegmund2012}}
 	
@@ -57,9 +65,19 @@ Beachte: $C$ kann Konfiguration aus $i$ Features sein $\Rightarrow \mathcal{O}(i
 		\end{equation*}
 	Dafür benötigen wir je 4 Messungen: $\Pi(a \times min(a))$ , $\Pi(min(a))$ , $\Pi(a \times max(a))$ , $\Pi(max(a))$. Mit diesen kann man $\Delta a_{min}$ und $\Delta a_{max}$ bestimmen.
 	Und für $C=min(a)$ und $D = max(a)$ für $\forall a$ bestimmen ob sie interaktiv sind oder nicht.
-	Allerdings wissen wir außer beim Spezialfall $|{a| a \text{ ist interaktiv}}|=2$ nicht, welche Features interagieren.  
-	 
+	Allerdings wissen wir nicht, welche Features mit welchen interagieren. $\mathcal{O}(n!) \text{ Kombinationen}\Rightarrow$ Suche wird durch Heuristiken geleitet: \\
+	\begin{enumerate}
+		\item Pair-Wise Interaction $(\mathcal{O}\left(\begin{smallmatrix}
+		2\\
+		n
+		\end{smallmatrix}\right))$
+		\item Higher Order Interactions (three way interactions, mostly based on Pair wise founds)
+		\item Hot-Spot Features additional measurements to find hotspot features.
+	\end{enumerate}
+	Diese Heuristiken werden auf Implication chain angewendet um nach interaktiven paaren zu suchen. (s. Dokument)
 	
+	 
+	\section{Comparative Analysis of Software Performance Prediction Approaches in Context of Component-based System \cite{ComparativeanalysisAbdelaziz112011}}
 	
 	\nocite{*}
 	\bibliography{../template}
