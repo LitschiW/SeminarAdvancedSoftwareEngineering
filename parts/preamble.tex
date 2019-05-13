@@ -82,9 +82,27 @@
 %% Sonstiges
 \newcommand{\TODO}[1]{\par\textcolor{red}{#1}\marginpar{\textcolor{red}{TODO}}}
 \newcommand{\TODOX}[1]{\textcolor{red}{#1}\marginpar{\textcolor{red}{TODO}}}
+\newcommand{\inlineQuote}[1]{''#1``}
 \pagestyle{plain}
 
 % Keine "Schusterjungen"
 \clubpenalty = 10000
 % Keine "Hurenkinder"
 \widowpenalty = 10000 \displaywidowpenalty = 10000
+
+%svg and pdf imports
+\usepackage{svg}
+\usepackage{pdfpages}
+
+\usepackage{wrapfig}
+\usepackage{blindtext}
+
+%tables
+\usepackage{tabularx}
+\usepackage{booktabs}
+\usepackage{multicol}
+\usepackage{makecell}
+
+%figure and table caption setup
+\usepackage{caption}
+\captionsetup{labelfont=bf,format = hang }

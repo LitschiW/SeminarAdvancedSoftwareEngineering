@@ -1,0 +1,80 @@
+%% Creator: Inkscape inkscape 0.92.4, www.inkscape.org
+%% PDF/EPS/PS + LaTeX output extension by Johan Engelen, 2010
+%% Accompanies image file 'VisualStudioSPL.pdf' (pdf, eps, ps)
+%%
+%% To include the image in your LaTeX document, write
+%%   \input{<filename>.pdf_tex}
+%%  instead of
+%%   \includegraphics{<filename>.pdf}
+%% To scale the image, write
+%%   \def\svgwidth{<desired width>}
+%%   \input{<filename>.pdf_tex}
+%%  instead of
+%%   \includegraphics[width=<desired width>]{<filename>.pdf}
+%%
+%% Images with a different path to the parent latex file can
+%% be accessed with the `import' package (which may need to be
+%% installed) using
+%%   \usepackage{import}
+%% in the preamble, and then including the image with
+%%   \import{<path to file>}{<filename>.pdf_tex}
+%% Alternatively, one can specify
+%%   \graphicspath{{<path to file>/}}
+%% 
+%% For more information, please see info/svg-inkscape on CTAN:
+%%   http://tug.ctan.org/tex-archive/info/svg-inkscape
+%%
+\begingroup%
+  \makeatletter%
+  \providecommand\color[2][]{%
+    \errmessage{(Inkscape) Color is used for the text in Inkscape, but the package 'color.sty' is not loaded}%
+    \renewcommand\color[2][]{}%
+  }%
+  \providecommand\transparent[1]{%
+    \errmessage{(Inkscape) Transparency is used (non-zero) for the text in Inkscape, but the package 'transparent.sty' is not loaded}%
+    \renewcommand\transparent[1]{}%
+  }%
+  \providecommand\rotatebox[2]{#2}%
+  \newcommand*\fsize{\dimexpr\f@size pt\relax}%
+  \newcommand*\lineheight[1]{\fontsize{\fsize}{#1\fsize}\selectfont}%
+  \ifx\svgwidth\undefined%
+    \setlength{\unitlength}{595.27559055bp}%
+    \ifx\svgscale\undefined%
+      \relax%
+    \else%
+      \setlength{\unitlength}{\unitlength * \real{\svgscale}}%
+    \fi%
+  \else%
+    \setlength{\unitlength}{\svgwidth}%
+  \fi%
+  \global\let\svgwidth\undefined%
+  \global\let\svgscale\undefined%
+  \makeatother%
+  \begin{picture}(1,1.41428571)%
+    \lineheight{1}%
+    \setlength\tabcolsep{0pt}%
+    \put(0,0){\includegraphics[width=\unitlength,page=1]{VisualStudioSPL.pdf}}%
+    \put(0.12790756,1.36307459){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.18899773\unitlength}\raggedright \end{minipage}}}%
+    \put(0.18136146,1.25934856){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.07127187\unitlength}\raggedright \end{minipage}}}%
+    \put(0.03054509,1.38343798){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.30735995\unitlength}\raggedright \end{minipage}}}%
+    \put(0.05536297,1.3688018){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.32581431\unitlength}\raggedright \end{minipage}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=2]{VisualStudioSPL.pdf}}%
+    \put(0.46286619,1.1935543){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}Visual Studio\\IDE\end{tabular}}}}%
+    \put(0.46286619,1.11414866){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}Visual Studio \\for Mac\end{tabular}}}}%
+    \put(0.46286619,1.04681772){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}Visual Studio\\Code\end{tabular}}}}%
+    \put(2.88032764,0.30817731){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{3.50426694\unitlength}\raggedright \end{minipage}}}%
+    \put(0.70386134,1.04681772){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}Visual Studio\\Enterprise\end{tabular}}}}%
+    \put(0.70386134,1.1935543){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}Visual Studio\\Community\end{tabular}}}}%
+    \put(0.70386134,1.11414866){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}Visual Studio\\Professional\end{tabular}}}}%
+    \put(0.63826507,1.20780373){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.19281592\unitlength}\raggedright \end{minipage}}}%
+    \put(0.59308379,1.2631667){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.33090511\unitlength}\raggedright \end{minipage}}}%
+    \put(0.59562924,1.3051662){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.29908735\unitlength}\raggedright \end{minipage}}}%
+    \put(1.87450445,1.00686611){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.9899494\unitlength}\raggedright \end{minipage}}}%
+    \put(0.37729547,1.27042115){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.42852212\unitlength}\raggedright \end{minipage}}}%
+    \put(0.37239555,1.08600518){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.43386751\unitlength}\raggedright \end{minipage}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=3]{VisualStudioSPL.pdf}}%
+    \put(0.3460839,0.9959887){\color[rgb]{0,0,0}\rotatebox{-90}{\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}...\end{tabular}}}}}%
+    \put(0.1267306,1.1647839){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.07837681\unitlength}\raggedright Visual Studio Core\end{minipage}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=4]{VisualStudioSPL.pdf}}%
+  \end{picture}%
+\endgroup%

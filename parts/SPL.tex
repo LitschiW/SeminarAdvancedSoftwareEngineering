@@ -1,0 +1,30 @@
+\section{Software Product Lines Performance Influence}
+
+\TODOX{Intro}
+tarditionell präprözessoren oder compiler optionen oder startup optionen
+
+\subsection{Introduction into Software Product Lines}
+
+As mentioned above modern software systems are often highly configurable and customizable. To be able to provide such a large amount of customization, software engineers adopted the concept of \textit{mass customization} inside a product line. A technique mostly known from the automotive industry\cite{SPLEngineering}.\cite{SPLEngineering} further describes how a general product-line functions: There is a \textit{common platform}, which is in itself expandable and holds all basic functionalities. It also provides interfaces for adding on parts (features). Some parts are mandatory and some are optional. For each part there might be different versions or variations that are interchangeable.\\
+
+\begin{figure}%{c}{\textwidth}
+	\centering
+	\label{fig:VSSPL}
+	\setlength\belowcaptionskip{-\baselineskip}
+	\captionsetup{width=0.95\linewidth}
+	\includesvg[scale = 0.7]{figures/VisualStudioSPL.svg}
+	\caption{Partial view of the Visual Studio Product Line \cite{VisualStudioSPL}. (Assuming a Microsoft is using core libaries for its product. Which is likely since .Net Core runs on all major operating systems.) }
+\end{figure}\noindent
+Software product lines (SPL) inherit this behavior of reusing existing components to enhance the development process \cite{IssuesAndModelsInSPL}. They are used to create a software product that is highly configurable and customizable. Products inside a SPL can even serve as a common platform for further customization. A more detailed look at the economical thought behind SPLs is given by \citet{IssuesAndModelsInSPL}.\\
+An example of a SPL would be the Visual Studio product line from Microsoft as shown in \hyperref[fig:VSSPL]{figure 1}. The common platform are some core libraries that provide shared code to all products of this line. The products themselves add platform or usage specific features (parts) to the core to offer a broad variation of products. The Visual Studio IDE even splits up further into 3 products that all serve a different purpose, but use same code base. Note that \hyperref[fig:VSSPL]{figure 1} only displays static variations of the product line. Almost all versions are additionally dynamically expendable via plug-ins and customizable via options and preferences.
+
+\subsection{Performance Influences of Feature Binding in SPLs}
+
+The following section is based on Combining Static and Dynamic Feature Binding in Software Product Lines~by~\citet{CombiningStaticandDynamicFeatureBinding}.\\
+When designing a SPL one has a choice for each feature to either bind it statically or dynamically.
+A statically bound feature is compiled directly into the binary of a program. Its always available to the environment when needed but uses up binary space to do so.
+When dynamically binding a feature it is not a part of the core binary, yet a part of an external \textit{feature library}. Once such a feature is needed the core loads the according library from an external source. This leads to the core binary being smaller but the size needed for each feature is increased by some meta-data (size, location, format, etc. of the feature library). Multiple features can be combined into one feature library for optimization. Feature libraries are also called \textit{binding units}. Note that \cite{CombiningStaticandDynamicFeatureBinding} uses the \textit{decorator pattern} for the realization of dynamic feature binding.\\
+To describe the effects of binding types we use the terms \textit{functional} and \textit{compositional overhead}. A functional overhead  originates form features (or binding units) that are loaded inside a program yet never used. In turn a compositional overhead is found as meta data that is needed to describe dynamic behavior.\\An abstract example: A program core consisting out of 3 features and uses up~2MB of (hard-drive) memory. We extract 1 feature that is rarely used into a dynamic link library with the size of~1.1MB. Afterwards our core is only~1MB large. We can already conclude that our original program had a functional overhead of~1MB by subtracting the old and the new binary size. When using the extracted feature our program uses up~2.1MB of memory. So we can say that our compositional overhead for extracting the feature is 0.1MB. That is the data needed to describe the location, format, etc. of the feature library.\\
+\TODO{daten aus paper einfügen}
+\TODO{Fig 18 einbauen}
+Coming back to binding types we have the problem of finding an optimal combination of static and dynamic bindings. \citet{CombiningStaticandDynamicFeatureBinding} suggest to prefer static binding if no dynamic extensibility is required and resources are not limited. A full static bound program has no compositional overhead and thus only requires additional (persistent and transient) memory. However programs that are more limited in their resources may need to be designed to minimize the overall overhead. This is basically the same task of finding an optimal configuration of a program. Techniques regarding the analysis and prediction will come up later in the paper \TODOX{reference einfügen}. The compositional overhead of binding units can be predicted partially since feature libaries have a constant size header (e.g. 5KB per Dynamic Link Library \{DLL\}). A general guideline is to avoid a large number and a large size of binding units. Overlapping binding units as well as dynamic splitting and merging of binding units are possible optimizations. \citet{CombiningStaticandDynamicFeatureBinding} also mention that \inlineQuote{[...] there is no optimal size for a binding unit, a domain expert can define binding units per application scenario.}.
