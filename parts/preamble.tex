@@ -74,6 +74,7 @@
 %% Mathe
 \usepackage{amsmath}
 \usepackage{amssymb}
+\allowdisplaybreaks
 
 %% Listings
 \usepackage{listings}
@@ -97,7 +98,9 @@
 %
 \usepackage{enumitem}
 \usepackage{blindtext}
+\usepackage{wrapfig}
 
+\usepackage[capitalise,nameinlink]{cleveref}
 
 %tables
 \usepackage{tabularx}
@@ -108,3 +111,14 @@
 %figure and table caption setup
 \usepackage{caption}
 \captionsetup{labelfont=bf,format = hang }
+
+
+%remove mathcal from Pi and Delta
+\let\oldPi\Pi
+\renewcommand{\Pi}{\ensuremath{\mathrm{\oldPi}}}
+\let\oldDelta\Delta
+\renewcommand{\Delta}{\ensuremath{\mathrm{\oldDelta}}}
+
+%add normal braces to \ref command
+\let\oldRef\ref
+\renewcommand{\ref}[1]{(\oldRef{#1})}
