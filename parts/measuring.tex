@@ -1,12 +1,19 @@
-\section{Measuring and Predicting the Performance of Highly Configurable Systems}
+\section{Measuring and Predicting the Performance of Highly Configurable Systems}\label{sec:measuring}
 
-As already established modern programs have a lot of customization options.
-With such a large amount of configuration options a developer needs some sort of mechanism to ensure his application has the required performance under most or all configurations. On one hand this is very important when it comes to contract terms and conditions with customers. A program should perform as good as the customer needs it to. Otherwise a developer may face fines. On the other hand performance prediction is helpful in finding performance problems or room for improvement. This either helps with the previous point of reaching a set performance target or to make the program more user friendly (less response time, smaller binary size, ...).\\
-It is important to note that since we have such a large configuration space one can only talk about the average performance of either a program (considering all configurations) or the performance of a specific configuration(-family)/feature.\\
-Why do we need to learn and predict the performance of a system? Berkley DB (C) is a database management program for embedded systems. It has 18 features and 2560 different configurations. In their paper \inlineQuote{{\textit{Predicting Performance via Automated Feature-Interaction Detection}}} \citet{AutomatedFeatureDetectionSiegmund2012} measured each configuration and it took 426h (=17,75d)\footnote{These measurements were done on computers that are (from today's point of view) fairly slow \cite{AutomatedFeatureDetectionSiegmund2012,CPUDatabase}. }. This and other examples from the same paper show, that it is not practical to brute force measure each and every configuration possible.\\
-By learning about the performance difference between multiple configurations it is possible accurately predict the behaviour of a program. This means that one does not need ot measure all possible configurations but instead a small sample size should be enought to predict a programs performance. This can be done in multiple ways. This paper will take a look at \hyperref[sec:AFID]{Automated Feature Interaction Detection}, a statistic based approach and WHAT (machine/spectral learning).
+By learning about the performance difference between multiple configurations it is possible accurately predict the a programs performance. This means that one does not need ot measure all (possibly exponentially many) configurations. Instead a small sample size should be enough to predict a programs performance. Multiple ways using diffrent methods have been proposed over time \cite{FasterDiscoveryofFasterSystemConfigurationsSiegmund2017} This paper will take a look at
+\begin{itemize}
+	\item \hyperref[sec:AFID]{Automated Feature Interaction Detection} by \citet{AutomatedFeatureDetectionSiegmund2012},
+	\item an \hyperref[sec:IncrementalApproach]{incremental/statistical learning approach} by \citet{VariabilityAwarePerformancePredictionJianmeiSigmundApel},
+	\item \hyperref[sec:WHAT]{\textbf{WHAT}} a spectral learning approach by \citet{FasterDiscoveryofFasterSystemConfigurationsSiegmund2017},
+	\item and \hyperref[sec:TransferLearning]{Transfer Learning} by \citet{TransferLearningforImprovingModelPredictionsJamshidiVKSK17}.
+\end{itemize}
 
-%\input{parts/ProblemOfMesuring}
+
+%It is important to point out that since we have such a large configuration space one can only talk about the average performance of either a program (considering all configurations) or the performance of a specific configuration(-family)/feature.\\
+
+
+
+%\input{parts/Approaches to Performance Prediction}
 \input{parts/AFID}
 \input{parts/VariabilityAwarePerformancePrediction}
 \input{parts/WHAT}

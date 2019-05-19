@@ -83,7 +83,7 @@
 %% Sonstiges
 \newcommand{\TODO}[1]{\par\textcolor{red}{#1}\marginpar{\textcolor{red}{TODO}}}
 \newcommand{\TODOX}[1]{\textcolor{red}{#1}\marginpar{\textcolor{red}{TODO}}}
-\newcommand{\inlineQuote}[1]{''#1``}
+\newcommand{\inlineQuote}[1]{``#1''}
 \pagestyle{plain}
 
 % Keine "Schusterjungen"
@@ -99,6 +99,7 @@
 \usepackage{enumitem}
 \usepackage{blindtext}
 \usepackage{wrapfig}
+\usepackage{placeins}
 
 \usepackage[capitalise,nameinlink]{cleveref}
 
@@ -111,7 +112,6 @@
 %figure and table caption setup
 \usepackage{caption}
 \captionsetup{labelfont=bf,format = hang }
-
 
 %remove mathcal from Pi and Delta
 \let\oldPi\Pi
