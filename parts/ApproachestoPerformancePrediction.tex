@@ -1,0 +1,17 @@
+\subsection{Approaches to Performance Prediction}\label{sec:approachesPerformanceLearning}
+
+Before looking at actual prediction methods one should have a look at general possibilities for prediction methods. There are 2 general approaches to predicting a component-based system's performance \cite{ComparativeanalysisAbdelaziz112011}. 
+
+\subsubsection[Measurement Approach]{\textnormal{First there is the }measurement-based approach\textnormal{.}} A measurement-based approach uses an analysis tool to monitor an application during execution. Based on the measurements of an existing application a performance model is build and modified. This approach is highly dependent on existing software (e.g.: measured application, analysis tool, operating system). \cite{ComparativeanalysisAbdelaziz112011}
+
+\subsubsection[Model-based Approach]{\textnormal{Secondly there is the }model-based approach\textnormal{.}}
+A model-based approach relies on models created by Model Driven Development. It combines multiple models of a system to give a performance prediction. The advantage of this technique is that it does not require a system to exists. Therefore performance modelling can be done before a system is actually composed.
+Automation and usage profiles are used to improve the prediction accuracy of this method. Approaches that don't use automation are generally found to be reasoning tools rather than applicable approaches. Some approaches do not consider external factors such as external service calls, usage profiles or the execution environment at all. This decreases the accuracy of their predictions. \cite{ComparativeanalysisAbdelaziz112011}
+
+\subsubsection[Mixed Approaches]{Mixed approaches} are also possible and can occur in many different variations. For example it is possible to parametrize a model based on measured values. \cite{ComparativeanalysisAbdelaziz112011}
+
+This paper will mainly focus on measurement based approaches.%TODO reasoning
+
+%\citet{ComparativeanalysisAbdelaziz112011} also provide an overview over the benefits and disadvantages of each type of approach:
+
+

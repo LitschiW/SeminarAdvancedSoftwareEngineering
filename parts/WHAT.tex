@@ -1,1 +1,22 @@
 \subsection{WHAT}\label{sec:WHAT}
+\newcommand{\WHAT}{WHAT}
+
+\WHAT~is a spectral learning approach developt by \citet{FasterDiscoveryofFasterSystemConfigurationsSiegmund2017}. It aims to find an accurate and stable performance model with fewer samples than the previous methods. To reach this goal it uses spectral and regression tree learning. The idea behind spectral learning is mathematical concept of \textit{eigenvalues/-vectors} of a distance matrix between configurations. This has the advantage of automatic noise reduction as \citet{FasterDiscoveryofFasterSystemConfigurationsSiegmund2017} explain: \inlineQuote{When data sets have many irrelevancies or closely associated data parameters $d$, then only a few eigenvectors $e, e\ll d$ are required to characterize the data.}\\
+The main advantage of this approach are a reduced sample size needed and a lower standard deviation compared to previously shown methods \cite{FasterDiscoveryofFasterSystemConfigurationsSiegmund2017}.
+\citet{FasterDiscoveryofFasterSystemConfigurationsSiegmund2017} divide \WHAT~into 3 parts.\\
+
+\textbf{1. Spectral Learning}
+
+This first step is used to cluster all valid configurations. Every configuration is an element of the feature space $F$. This section uses the same definition for a \textit{configuration} as \cref{sec:VAPPMethods} \footnote{This definition can also be expanded to cover non binary options like a programs stack size. For this $x_i\in\mathbb{R}$ has to be chosen.}. As each configuration is an n-dimensional vector (or n-tupel) it can be placed in an n-dimensional space.\\
+\WHAT~gets $N$ different valid configurations as input and is picks a random configuration $N_i$ and two configurations $West$ and  $East$. $West$ is the configuration that is most different to $N_i$ and $East$ is the configuration most different to $West$. In mathematical terms 'most diffrent' means most farthest away. After that a straight through $East$ and $West$ is calculated and all configuration are dived into two cluster by their distance to this line. This process is recursively repeated for each sub-cluster until they reach a threshold size. \citet{FasterDiscoveryofFasterSystemConfigurationsSiegmund2017} use the $\sqrt{|N|}$ as their termination value. We end up with leaf clusters that contain configurations which are similar in their chosen feature options. This process runs in linear time\cite{FasterDiscoveryofFasterSystemConfigurationsSiegmund2017}.\\
+
+\textbf{2. Spectral Sampling}
+
+For the actual sampling a probabilistic strategy is applied: One configuration randomly picked from each leaf cluster is compiled and executed.\\
+There are also two other sampling strategies mentioned that will get outperformed by the probabilistic strategy.\\
+
+\textbf{3. Regression-Tree Learning}
+
+This step is similar to \cref{sec:VAPPMethods}. A CART is build from the chosen samples. This time the best split is defined as reaching the minimum of $\frac{A}{N}\sigma_1+\frac{B}{N}\sigma_2$$^,$\footnote{The paper (\cite{FasterDiscoveryofFasterSystemConfigurationsSiegmund2017}) defines $A$ and $B$ as sets and $N$ as a (natural) number. So it may is to assume that the formular actually should be $\frac{|A|}{N}\sigma_1+\frac{|B|}{N}\sigma_2$. This does make sense since this formula weights both standard deviations $\sigma$ proportional to $N$.}. From this CART decision rules can be derived.
+
+\subsubsection{Results} of testing \WHAT~on the programs we introduced earlier show that it has an average precision of 93.4\%. Also the standard deviation is comparably low.\cite{FasterDiscoveryofFasterSystemConfigurationsSiegmund2017}

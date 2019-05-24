@@ -1,4 +1,4 @@
-\subsection{Variability aware Performance Prediction}
+\subsection{Variability aware Performance Prediction}\label{sec:vapp}
 
 The following section is based upon \cite{VariabilityAwarePerformancePredictionJianmeiSigmundApel}.\\
 Variability aware performance prediction is a model based approach to performance predictions. With the help of \textit{Classication and Regression Trees} (short: CART, see \cite{ClassificationandRegressionTrees}) and some configuration samples a statistical model of a program can be created. In thier own tests \citet{VariabilityAwarePerformancePredictionJianmeiSigmundApel} reached an average precision of 94\%.
@@ -32,7 +32,7 @@ Like other approach, the target of variability aware performance prediction is t
 	\label{fig:VAPPExampleTree}	
 \end{figure}
 \FloatBarrier %forces the float to appear below the subsubsection
-\subsubsection{Statistical Methods}  are used to perform the actual computation. First of all a configuration is defined as an $N$-tuple $(x_1,x_2,x_3,...,x_N)$, where $N$ is the number of all available features. Each $x_i$ represents a feature and can either have the value 1 or 0 depending on whether the feature is selected or not. An actual configuration example would be $\x_j = (x_1=1,x_2=0,x_3=1,\dots,x_N = 1)$. All valid configurations of a system are denoted as $\X$.\\
+\subsubsection{Statistical Methods}\label{sec:VAPPMethods}  are used to perform the actual computation. First of all a configuration is defined as an $N$-tuple $(x_1,x_2,x_3,...,x_N)$, where $N$ is the number of all available features. Each $x_i$ represents a feature and can either have the value 1 or 0 depending on whether the feature is selected or not. An actual configuration example would be $\x_j = (x_1=1,x_2=0,x_3=1,\dots,x_N = 1)$. All valid configurations of a system are denoted as $\X$.\\
 To each configuration $\x_j$ an actual performance value $y_j$ can be assigned. $\Y$ denotes the performance of all configurations of a system.\\
 %It is assumed that all $x_i\in\mathrm{x}_j$ influence the performance of a system. So all of them are considered \textit{predictors}. $y_j$ is the seen as the \textit{response}.
 Combining $\Y$ with $\X_S\subset\X$ gives a sample $S$. Now the two problems arise that variability aware performance prediction tries to solve:
@@ -43,7 +43,7 @@ Combining $\Y$ with $\X_S\subset\X$ gives a sample $S$. Now the two problems ari
 	f : \X \rightarrow  \mathbb{R} \text{ such that} \sum_{\x,y \in S} L(y,f(\x)) \text{ is minimal}
 	\end{equation} 	where $L$ is a loss function to penalize errors in prediction.''\cite{VariabilityAwarePerformancePredictionJianmeiSigmundApel}
 \end{enumerate}
-This is done with the help of CART. All sample configurations get categorized into a binary trees leafs. A configurations selection of features determines its location in the tree. The distribution of samples inside the tree is determined by CART with the goal of minimizing the total prediction errors per segment (sub-trees). An example tree can be found in \cref{fig:VAPPExampleTree}.
+This is done with the help of CART. All sample configurations get categorized into a binary trees leafs. A configurations selection of features determines its location in the tree. The distribution of samples inside the tree is determined with the goal of minimizing the total prediction errors per segment (sub-trees). An example tree can be found in \cref{fig:VAPPExampleTree}.
 For each leaf one can determine the \textit{local model} $\ell$
 \begin{equation}
 	\ell_{S_i} = \frac{1}{|S_i|} \sum_{y_j \in S_i} y_j
@@ -71,4 +71,11 @@ f(x) = 255&* I(x_{14}=1,x_7=0)\\[-0.1cm]
 	 + 571&* I(x_{14}=0,x_{15}=0,x_3=1)\\[-0.1cm]
 	 + 626&* I(x_{14}=0,x_{15}=0,x_3=0)
 \end{align*}
-Every possible configuration $\mathrm{x}$ is associated with a leaf of the tree. Therefore $f(\mathrm{x})$ can always be applied.
+Every possible configuration $\mathrm{x}$ is associated with a leaf of the tree. Therefore $f(\mathrm{x})$ can always be applied.\\
+For their Experiment \citet{VariabilityAwarePerformancePredictionJianmeiSigmundApel} test the same software systems as \citet{AutomatedFeatureDetectionSiegmund2012} (\cref{sec:AFID}). They also compare their prediction results with the results produced by SPLConquerer under \AFID.\\
+Unlike \AFID~the size of a sample for variability aware performance prediction can be chosen freely. \citet{VariabilityAwarePerformancePredictionJianmeiSigmundApel} use 4 different sample sizes based on the size of the program. For a program with $N$ features they use samples the size of $N,2N,3N \text{ and } M$. $M$ is the amount of configurations measured by SPLConquerer's using the \hyperref[lab:PW]{PW heuristic}.
+It is found that the prediction accuracy increases linear with the size of the sample. It is also found that for using a small sample with the size of $N$ the prediction accuracy was at 92\%. However for Berkeley DB (C) the prediction rate with $N$ sized samples was at 112.4$\pm$354.6\%\footnote{$\pm$354.6 indicates the standard deviation}. This results into an average accuracy of only 28.6$\pm$68.9\%. Using a sample size of $M$ significantly improves the average prediction accuracy to 93.8\%.\\
+Further \citet{VariabilityAwarePerformancePredictionJianmeiSigmundApel} comparer their approach with \AFID. This can be done since $N$ also equals the amount of configurations measured by the \hyperref[lab:FW]{FW heuristic}.\\
+As already established variability aware performance prediction is not accurate for small sample sizes so it is no surprise that \AFID~with the \hyperref[lab:FW]{FW heuristic} performace better at $20.3\pm21.2$\% with a sample size of $N$. However, when using samples of size $M$ SPLConquerer's \hyperref[lab:PW]{PW heuristic} only reaches an average precision of 90.9\% compared to the already mentioned 93.9\% of \citet{VariabilityAwarePerformancePredictionJianmeiSigmundApel}'s approach.
+Using the \hyperref[lab:HO]{HO} or \hyperref[lab:HS]{HS heuristic} of \AFID can produce a precision of up to 95\% but requires more measurements. This is not covered by \cite{VariabilityAwarePerformancePredictionJianmeiSigmundApel}.
+%TODO vllt selbst prüfen?
