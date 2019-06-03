@@ -1,0 +1,27 @@
+Motivation -> Einstellungen haben teilweiße großen einfluss auf auf performance 
+    wollen finden
+    - optimale Einstellungen
+    - gute default Einstellungen   
+    - probleme in Implementierung
+    - proof of good average peroformance
+
+Problem  ->
+    Can we just brute force measure?
+    NO! (s. Berkley DB C)
+    reason: Configuration space ist exponentiel
+    -> configuration = n-tupel ->  #Kombinationen \in  O(2^#options)
+
+general overview of performance prediction
+
+    sample -> performance model learning -> prediction/analysis/optimaization
+    
+
+    Approaches:
+        - Brute force X
+        - Automated feature interaction detection
+        - CART Tree based
+            - random sampling
+            - distance sampling
+            - projective sampling
+
+Conclusion
