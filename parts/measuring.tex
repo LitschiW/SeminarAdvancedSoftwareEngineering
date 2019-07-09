@@ -1,20 +1,18 @@
 \section{Measuring and Predicting the Performance of Highly Configurable Systems}\label{sec:measuring}
 
-By learning about the performance difference between multiple configurations it is possible accurately predict the a programs performance. This means that one does not need ot measure all (possibly exponentially many) configurations. Instead a small sample size should be enough to predict a programs performance. Multiple ways using diffrent methods have been proposed over time \cite{FasterDiscoveryofFasterSystemConfigurationsSiegmund2017} This paper will take a look at
+By learning about the performance difference between multiple configurations it is possible accurately predict the a programs performance. This means that one does not need ot measure all (possibly exponentially many) configurations. Instead a small sample size should be enough to predict a programs performance. Multiple ways using diffrent methods have been proposed over time \cite{FasterDiscoveryofFasterSystemConfigurationsSiegmund2017}. This paper will take a look at
 \begin{itemize}
 	\item \hyperref[sec:AFID]{Automated Feature Interaction Detection} by \citet{AutomatedFeatureDetectionSiegmund2012},
 	\item an \hyperref[sec:IncrementalApproach]{incremental/statistical learning approach} by \citet{VariabilityAwarePerformancePredictionJianmeiSigmundApel},
 	\item \hyperref[sec:WHAT]{\textbf{WHAT}} a spectral learning approach by \citet{FasterDiscoveryofFasterSystemConfigurationsSiegmund2017},
-	%\item and \hyperref[sec:TransferLearning]{Transfer Learning} by \citet{TransferLearningforImprovingModelPredictionsJamshidiVKSK17}.
+	\item \hyperref[sec:ProjectiveSampling]{Cost efficient sampling by \cite{CostEfficientSampling_Gou_Siegmund_2015}}
 \end{itemize}
 
 
-%It is important to point out that since we have such a large configuration space one can only talk about the average performance of either a program (considering all configurations) or the performance of a specific configuration(-family)/feature.\\
 
-
-
-\input{parts/ApproachestoPerformancePrediction}
+%\input{parts/ApproachestoPerformancePrediction}
 \input{parts/AFID}
+\input{parts/CART}
 \input{parts/VariabilityAwarePerformancePrediction}
 \input{parts/WHAT}
 

@@ -1,21 +1,21 @@
 \section{On the Applicability of the Brute Force Approach}
-
+\label{sec:BruteForce}
 As already mentioned in the Introduction: Brute Force measureing is not feasible in most cases \cite{AutomatedFeatureDetectionSiegmund2012}. But whats the actual reason behind this?
 Let's have a look at an example first:
 
 In one paper \citet{AutomatedFeatureDetectionSiegmund2012} measured all valid configurations of multiple programs to analyze the accuracy of \AFID. Berkley DB (C) was one of those programs. It is a database management program for embedded systems. It has 19 features and 2560 valid configuration. In the end it took approximately 426 hours (= 17.75 days) to measure all these configurations. This value corresponds to a time of about 10 minutes per configuration measurement. Considering that Berkley DB (C) is a comparably small program this is already a significant amount of time but still a considerable margin that can actually be used to get perfect results.
 
-This changes once one takes a look at larger programs. Modern applications like Apache or MySQL can have hundreds of configurable parameters \cite{YouveGivenMeTooManyKnobs}. Such can be seen in \cref{fig:paramters}. For example \citet{VAMOSConference} says that one version SQLite had 77 features that produced $3 \cdot 10^{77}$ valid configurations. Unfortunately there is no evidence how the latter number was calculated. Yet we can assume that at least the scale of this number in regards to the number of features is correct. This is explained in the next paragraph. Coming back to the example: Assuming measuring (compiling + profiling) one configuration would take 5 minutes, a brute-force approach would take $2.5 \cdot 10^76$ hours. This is obviously not an acceptable duration.
+This changes once one takes a look at larger programs. As mentioned in the Introduction: modern applications like Apache or MySQL can have hundreds of configurable parameters \cite{YouveGivenMeTooManyKnobs}. Another example was displayed by \citet{VAMOSConference}: SQLite has 77 features that produced $3 \cdot 10^{77}$ valid configurations. Unfortunately there is no evidence how the latter number was calculated. Yet we can assume that at least the scale of this number in regards to the number of features is correct. This is explained in the next paragraph. Coming back to the example: Assuming measuring (compiling + profiling) one configuration would take 5 minutes, a brute-force approach would take $2.5 \cdot 10^76$ hours. This is obviously not an acceptable duration.
 
 \begin{wrapfigure}{r}{0.5\textwidth}
 	%\setlength\belowcaptionskip{-\baselineskip}
 	\includegraphics[width = 0.5\textwidth]{presentation/figures/FeatureModel}
 	\captionsetup{width=0.95\linewidth}
-	\caption{And example of a feature model.}
+	\caption{An example of a feature model.}
 	\label{fig:FeatureModel}
 \end{wrapfigure}
 
-To find out why \textit{brute-force} does not scale well one needs to have a generic look at how many configurations per program are need to be measured. This set of all valid configurations can be written down as a \textit{Feature Model}. An example for this can be seen in \cref{fig:FeatureModel}. This graph describes the software system called \inlineQuote{Database System}. \textit{Features Models} can be annotated with further logical expressions for more complicated configuration conditions. Such can also be seen in the just mentioned example. Each \textit{Features Model} can also be written down as a logical expression. The atomic variables of this expression are the options of the software system. In this context a configuration is written down as an assignment of each variable of the expression. The tree as seen in \TODOX{reference Figure} is equivalent to the formular
+To find out why \textit{brute-force} does not scale well one needs to have a generic look at how many configurations per program are need to be measured. This set of all valid configurations can be written down as a \textit{Feature Model}. An example for this can be seen in \cref{fig:FeatureModel}. This graph describes the software system called \inlineQuote{Database System}. \textit{Features Models} can be annotated with further logical expressions for more complicated configuration conditions. Such can also be seen in the just mentioned example. Each \textit{Features Model} can also be written down as a logical expression. The atomic variables of this expression are the options of the software system. In this context a configuration is written down as an assignment of each variable of the expression. The tree as seen in \cref{fig:FeatureModel} is equivalent to the function
 \begin{equation*}
 	V(C)= \text{Base} \land (\text{Version1.5} \oplus \text{Version2.1}) \land (\text{Version1.5} \Rightarrow \neg \text{DBServer}).%Punkt gehört zum Satz
 \end{equation*}
