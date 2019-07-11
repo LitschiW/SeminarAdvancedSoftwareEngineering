@@ -36,8 +36,11 @@ The most straight forward  approach to this problem would be a \textit{brute-for
 This paper will focus on showing different approaches and strategies to predicting the performance of a configurable software system. It will mainly discuss approaches developed by Norbert Siegmund et al. \cite{AutomatedFeatureDetectionSiegmund2012,VariabilityAwarePerformancePredictionJianmeiSigmundApel,CostEfficientSampling_Gou_Siegmund_2015, DistanceBasedSampling2019}. They will be explained and compared. More specifically this paper will have a look at 4 different approaches besides \textit{brute-force}.
 
 The first discussed technique is \textit{Automated Feature Interaction Detection} (\AFID) \cite{AutomatedFeatureDetectionSiegmund2012}. The goal of this approach is to assign a performance influence value to each feature and feature interaction. This is done by observing and measuring the behavior of certain configurations. 
-The other 4 approaches make use of a CART Tree as their learning choice but differ in the way they choose their sample. 
-\textit{Variability Aware Performance Prediction} (\VAPP) \cite{VariabilityAwarePerformancePredictionJianmeiSigmundApel} uses random sampling to pick which configurations to compiled and measured. 
+The other 4 approaches make use of a CART Tree as their learning choice but differ in the way they choose their sample.
+ 
+\textit{Variability Aware Performance Prediction} (\VAPP) \cite{VariabilityAwarePerformancePredictionJianmeiSigmundApel} uses random sampling to pick which configurations to compile and measure. 
+
 \WHAT~ \cite{DistanceBasedSampling2019}, as the next approach is called, tires a more mathematical way to find groups of similar configurations without actually measuring them. For this distance based clustering/sampling is used. 
+
 The last two sampling approaches are proposed in the same paper by \citet{CostEfficientSampling_Gou_Siegmund_2015}. They \textit{Progressive} and \textit{Projective Sampling} are quite similar, since they both take advantage of the fact, that the general formular behind a learning curve is known. With this knowledge they generate a part of the actual curve and fit a function to it. Based on this function a optimal size for the actual sample set can be calculated. Both methods also take the cost of measurements and over-/underfitting into consideration.\\
-All these approaches reach an accuracy of over 94\% on average in the conducted tests of their corresponding papers. This makes them good enough to be relevant for the topic of this paper.
+All these approaches can reach accuracies of over 94\% on average in the conducted tests of their corresponding papers. This makes them good enough to be relevant for the topic of this paper.

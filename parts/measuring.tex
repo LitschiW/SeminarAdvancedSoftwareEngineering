@@ -26,9 +26,9 @@ There is a general pattern for the solution of those problems that comes apparen
 	\caption{General pattern of prediction. Images from \cite{VAMOSConference}.}	\label{fig:GeneralApproach}
 \end{figure}
 
-The first step is to sample the exponential configuration space. This means finding configurations from which we can learn about the system. By using effient sampling techniques like spectral sampling \cite{DistanceBasedSampling2019} or progressive sampling \cite{CostEfficientSampling_Gou_Siegmund_2015}.
+The first step is to sample the exponential configuration space. This means finding configurations from which can be learned about the system. This is done by using effient sampling techniques like spectral sampling \cite{DistanceBasedSampling2019} or progressive sampling \cite{CostEfficientSampling_Gou_Siegmund_2015}.
 
-Once we found enough and meaningful configurations we start step 2: the learning process. Usually the previously chosen configurations are measured if this was not already done whilst sampling. The measurement results are fed to a learning process. A lot of different machine learning strategies can be applied\cite{VAMOSConference}. The relative papers typically use \CART's. Those will be explained further in \cref{sec:CART}.
+Once enough and meaningful configurations are found the learning process starts. Usually the previously chosen configurations are measured, under the condition that this was not already done whilst sampling. The measurement results are fed to a learning process. A lot of different machine learning strategies can be applied \cite{VAMOSConference}. The relative papers typically use \CART's. Those will be explained further in \cref{sec:CART}.
 
 
 %\input{parts/ApproachestoPerformancePrediction}

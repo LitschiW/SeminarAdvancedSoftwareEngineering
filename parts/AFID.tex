@@ -14,68 +14,41 @@ In general one can divide \AFID~into two different steps:
 	\item Find interacting Features.
 	\item Measure the performance influence of feature interactions.
 \end{enumerate}
-For the first step some notation is needed. For simplicity \AFID is defined for binary options.
-The composition of using two (or more) features is denoted by a $\cdot$. This \textit{composition} is another way to describe a configuration.
+Firstly step some notation is needed. For simplicity \AFID~is defined for binary options.
+\TODOX{Add overview graphic}
+The composition of performance influencing units (features or feature interactions) is denoted by a $\cdot$. If two features are used simultaneously it is denoted by using a $\times$. This would also be another way to describe a configuration. So a program $P$ that uses the two features $a$ and $b$ can be denoted as $P= a \times b$.\\
+If one now wants to know the performance of $P$, they have to calculate $\Pi(P)$. The exact definition of the performance influence determining function $\Pi$ can be found in the paper of \citet{AutomatedFeatureDetectionSiegmund2012}. For now it is important to note that when calculating $\Pi(P)=\Pi(a \times b)$ not only the performance influence of $a$ and $b$ are necessary but also has $a\#b$ has to be considered. The latter is the performance influence of the possible interaction between $a$ and $b$. So $\Pi(a \times b) = \Pi(a\#b) + \Pi(a) + \Pi(b)$. This can also go into higher order interaction: When using a program configuration $P_2 = a \times b \times c$ then $\Pi(P_2) = \Pi(a) +  \Pi(b) +  \Pi(c) +  \Pi(a\#b) +  \Pi(a\#c) +  \Pi(b\#c) +  \Pi(a\#b\#c)$. Some interactions do not exist or have an influence on the system, those who actually have have to be found and measured. Otherwise one could end up doing a brute-force solution again.\\\\
 
-
-
-
-\subsubsection[Formulars]{\textnormal{Some} Formulars} are needed to descibe a Softwaresystem for AFID .
-The composition of using two (or more) units/features is denoted by $\cdot$ . This composition is also called a configuration \cite{VariabilityAwarePerformancePredictionJianmeiSigmundApel}.\\
-The interaction of two features is denoted by $a\#b$. By combining both we get a feature interaction:
-\begin{equation}
- a \times b = a\#b \cdot a \cdot b
-\end{equation} 
-This equation expresses, that when using both $a$ and $b$ we also need to consider their interaction $a\# b$. Note that either $a$ or $b$ can also be a configuration.\\
-Further Sigmund uses an abstract performance function $\Pi$ that is used to represent some performance value of a configuration:
-\begin{align}
-\Pi(a \cdot b) &= \Pi(a) + \Pi(b)\label{eq:featureInteraction_SimplePerformance}\\
-\Pi(a\#b) &= \Pi(a \times b) - (\Pi(a) + \Pi(b))\\
-\Pi(a \times b) &=  \Pi(a\#b) + (\Pi(a) + \Pi(b))\label{eq:featureInteraction_InteractionPerformances}
-\end{align}
-Following that the performance of a program $P = a \times b \times c$ can be written down as
-\begin{equation}\label{eq:featureInteraction_ProgrammPerformance}
-\Pi(P) = \Pi(a) +  \Pi(b) +  \Pi(c) +  \Pi(a\#b) +  \Pi(a\#c) +  \Pi(b\#c) +  \Pi(a\#b\#c). 
+Finding these interactions requires to find the related interacting features themselves first.
+This is done in by intelligently measuring certain configurations. \AFID~defines a features $a$ as interacting when
+\begin{equation}\label{def:equation}
+a \text{ interacts} \Leftrightarrow \exists C,D \subseteq \mathcal{C}| C \neq D  \land	 |\Delta a_C - \Delta a_D| \leq t
 \end{equation}
-The Problem with the equations \ref{eq:featureInteraction_SimplePerformance}-\ref{eq:featureInteraction_ProgrammPerformance} is that they assumes that we can measure the performance of a feature in isolation. This is in general not possible \cite{AutomatedFeatureDetectionSiegmund2012}. Also we are still in the space of $\mathcal{O}(2^n)$ of possible configurations that we need to measure.  
-To reduce this Sigmund et al. uses a interaction \textit{delta}. 
+with 
 \begin{equation}
 \begin{split}
 \Delta a_C &= \Pi(C\times a) - \Pi(C)\\
-&=\Pi(a\# C) + \Pi(a)
+&=\Pi(a\# C) + \Pi(a).
 \end{split}
 \end{equation}
-Where $C$ is a base configuration. This formula describes how the performance influence ($\Delta$) of $a$ on a configuration $C$ can be calculated. Its either the performance difference between using $C$ with and without $a$, or the performance influence of $a$ itself plus the influence of the interaction between $C$ and $a$.\\
-As a general approach to reduce its search space AFID looks at:\\
-\begin{minipage}{\textwidth}
-\begin{equation}
-	\Delta a_{min} = \Pi(a \times min(a)) - \Pi(min(a))
-\end{equation}
-\begin{center}
-	and
-\end{center}
-\begin{equation}
-	\Delta a_{max} = \Pi(a \times max(a)) - \Pi(max(a))
-\end{equation}
-\end{minipage}\\[0.3cm]
- Where $min(a)$ is a valid minimal configuration not containing $a$ but to which $a$ can be added to create another valid configuration. $max(a)$ is a valid maximal configuration not containing $a$ but to which $a$ can be added to create another valid configuration.\\
- \subsubsection[Automated Feature Interaction Detection]{\textnormal{For} AFID} 
-one first needs to define when a feature is interacting. For this \citet{AutomatedFeatureDetectionSiegmund2012} use the definition of 
- \begin{equation}
- a \text{ interacts} \Leftrightarrow \exists C,D | C \neq D  \land	 \Delta a_C \neq \Delta a_D .
- \end{equation}
- $C~=~min(a)$ and $D~=~max(a)$ are chosen to find interacting features and to reduce the search space for $C$ or $D$ from $\mathcal{O}(2^n)$ to $\mathcal{O}(n)$. By measuring $\Delta a_{min(a)}=\Delta a_C$ and $\Delta a_{max(a)}=\Delta a_D$ for each feature some first information about their behavior can be obtained. If both values for a feature $a$ are similar it does not interact with the features of $max(a)\backslash min(a)$. Otherwise $a$ is marked as interacting. In both cases it can still interact with the features of $min(a)$. In total 4 measurements per feature are required ($\Pi(a \times min(a))$, $\Pi(min(a))$, $\Pi(a\times max(a))$, $\Pi(max(a))$)\cite{AutomatedFeatureDetectionSiegmund2012}.\\
- Since most of the interacting features are known by now one can look for the groups of features whose interaction does have an influence on performance. Again the problem arises that there is an exponential number of possible combinations. Three heuristics are used to simplify the finding of these groups.
+$t$ is a threshold depending on the given performance metric.
+Using these two equations one can determine whether a feature is interacting with other features using 4 measurements.
+These include $\Delta a_{min} = \Pi(a \times min(a)) - \Pi(min(a))$ and $\Delta a_{max} = \Pi(a \times max(a)) - \Pi(max(a))$. $min(a)$ is a configuration that contains the minimum possible features without using $a$. Simultaneously $max(a)$ is also a configuration that contains the maximum amount of possible features without $a$. 
+Once these measurements are done \cref{def:equation} can be applied with $C=\Delta a_{min}$ and $D=\Delta a_{max}$. This is done for all features to find interacting ones.
+If a feature $f$ is not found to be interactive its performance influence  $\Pi(f)$ equals $\Delta f_{min}$.
+
+
+Once all interacting features are found the search for the actual interactions starts. In this second step 3 different heuristics are used to determine which interactions are searched for.
  
  \newcommand{\oitem}[2]{{\item[{\parbox[t][0pt][t]{\leftmargin}{\raggedleft #1}}] {\parbox[t]{\textwidth-\leftmargin}{#2}}}}
  \begin{itemize}[leftmargin=4cm]
  	\setlength\itemsep{1em}
- 	\oitem{Pair-Wise~Heuristik (PW):\label{lab:PW}}{ Most groups of interacting features appear in the size of two\cite{AutomatedFeatureDetectionSiegmund2012,AnalysisOfTheVariabilityInFortyPreprocessor_BasedSPLLiebig}. So it makes sense to look for pair interaction first.}
+ 	\oitem{Pair-Wise~Heuristik (PW):\label{lab:PW}}{ Most groups of interacting features appear in the size of two \cite{AutomatedFeatureDetectionSiegmund2012,AnalysisOfTheVariabilityInFortyPreprocessor_BasedSPLLiebig}. So it makes sense to look for pair interaction first.}
  	\oitem{Higher-Order Interactions Heuristic (HO):\label{lab:HO}}{
- 		\citet{AutomatedFeatureDetectionSiegmund2012} only look at higher order interactions of the rank of three. More on this later.
+ 		\citet{AutomatedFeatureDetectionSiegmund2012} only look at higher order interactions of the rank of three. Even ranks would take up to much measurement resources.
  	}
  	\oitem{Hot-Spot Features (HS):\label{lab:HS}}{
- 		Based on \cite{FeatureCohesioninSPL, CanWeAvoidHighCoupling?} \citet{AutomatedFeatureDetectionSiegmund2012} assume that hot spot features exist. \inlineQuote{[...] There are usually a few features that interact with	many features and there are many features that interact only with few features.}, these features are the hot spot features.
+ 		Based on \cite{FeatureCohesioninSPL, CanWeAvoidHighCoupling?} \citet{AutomatedFeatureDetectionSiegmund2012} assume that hot spot features exist. At last these specific type of interactions are findable too.
  	}
  \end{itemize}
 Using a SAT-Solver an implication graph as seen in \autoref{fig:ImplicationTree} is generated. Each implication chain in this tree should have at least one interacting feature. When analysing the tree each chain is walked from the top down. The three heuristics will be applied in the order of PW $\rightarrow$ HO $\rightarrow$HS.  

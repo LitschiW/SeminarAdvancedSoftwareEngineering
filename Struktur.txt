@@ -1,6 +1,3 @@
-Predicting performance    
-        - Accuracy/MeanError
-
     
     presented approaches (short overview)
 
@@ -14,3 +11,5 @@ Predicting performance
     Distance based Sampling
 
     Comparisson of Methods
+
+    Future/Current Research
