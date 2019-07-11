@@ -6,7 +6,6 @@ This paper often uses the terms \inlineQuote{parameters}, (configuration-)\inlin
 One can divide into different types of options. Binary options usually have a value of 0 or 1 and describe the activation of a feature. Non-binary options support a wider range of values. For example this could be a setting for the stack-size allowed for a program. Non-Numeric options support the input of text. Those could be paths or other addresses.
 The set of all configuration options is denoted as $\mathcal{O}$.
 
-
 A \textit{configuration} can be defined in multiple different ways. \citet{DistanceBasedSampling2019} define a configuration as a function $c : \mathcal{O} \rightarrow \{0,1\}$. It assigns a 1 to each element of $\mathcal{O}$ that is selected and a 0 to those which are not used.
 \citet{FasterDiscoveryofFasterSystemConfigurationsSiegmund2017} and \cite{VariabilityAwarePerformancePredictionJianmeiSigmundApel} have a similar approach. But instead of using a function to describe $c$ they use a vector or a n-tupel over $\mathbb{Z}^+_2(= \{0,1\})$. Each position of those enumerations is associated with exactly one feature. As in \cite{DistanceBasedSampling2019} a 1 indicates an activation of a feature and a 0 means that the feature is not used. These definitions obviously describes binary options only, but can be expanded to support non-binary options by using the codomain of $\mathbb{N}_0$ instead of $\{0,1\}$.
 
@@ -14,3 +13,7 @@ The \textit{configuration space} describes all valid configurations of a system.
 
 A \textit{sample} is the subset of a \textit{configuration space} that contains all configurations that are complied and measured during the process of sampling and learning.
 
+As a way to describe the quality of an approach \textit{accuracy} is often used. The \textit{accuracy} is defined as 1-\textit{fault rate}. And inturn the fault rate (or error rate) is defined as 
+\begin{equation}
+	\text{fault rate}= \frac{|actual-predicted|}{actual}.
+\end{equation} This definition can be found in \cite{AutomatedFeatureDetectionSiegmund2012} or \cite{FasterDiscoveryofFasterSystemConfigurationsSiegmund2017}.
