@@ -1,40 +1,41 @@
-\subsection{Variability aware Performance Prediction}\label{sec:vapp}
+\subsection{Variability aware Performance Prediction}\label{sec:VAPP}
 
-The following section is based upon \cite{VariabilityAwarePerformancePredictionJianmeiSigmundApel}.\\
-Variability aware performance prediction is a model based approach to performance predictions. With the help of \textit{Classication and Regression Trees} (short: CART, see \cite{ClassificationandRegressionTrees}) and some configuration samples a statistical model of a program can be created. In thier own tests \citet{VariabilityAwarePerformancePredictionJianmeiSigmundApel} reached an average precision of 94\%.
+The following section is based upon \citet{VariabilityAwarePerformancePredictionJianmeiSigmundApel}.\\
+Variability aware Performance Prediction (\VAPP) is a statistics based approach to performance prediction. With the help of random sampling and \CART s a simple yet effective predictor can be build. In their own tests \citet{VariabilityAwarePerformancePredictionJianmeiSigmundApel} reached an average precision of 94\% whilst using a sample as large as the ones \AFID would be using under the PW heuristic. Further tests conducted by \citet{FasterDiscoveryofFasterSystemConfigurationsSiegmund2017} with the same sample size showed an accuracy of 92.4\%. 
 
-\def\X{\ensuremath{\mathbf{X}}}
-\def\Y{\ensuremath{\mathrm{Y}}}
-\def\x{\ensuremath{\mathrm{\mathbf{x}}}}
-\def\y{\ensuremath{\mathrm{y}}}
 
-\begin{wrapfigure}{r}{.5\textwidth}
+\begin{wrapfigure}{r}{.5\linewidth}
 	\vspace{-1\baselineskip}
 	\setlength\belowcaptionskip{-\baselineskip}
-	\includesvg[width = \linewidth]{figures/VAPPCourse}
-	\caption{Overview of the Approach \cite{VariabilityAwarePerformancePredictionJianmeiSigmundApel}}	
+	\includegraphics[page=3,clip,trim=11cm 13.5cm 1.5cm 10.25cm, width=\linewidth ]{Paper/VariabilityAwarePerformancePredictionAStatisticalLearningApproach}
+	\caption{Overview of the Approach of Variability aware Performance Prediction \cite{VariabilityAwarePerformancePredictionJianmeiSigmundApel}}.
 	\label{fig:VAPPOverview}
 \end{wrapfigure}
 
 \subsubsection[Basic Idea]{\textnormal{The} basic idea} of variability aware performance prediction can be seen in \autoref{fig:VAPPOverview}.
+
 Two cycles can be found. 
 
-The first cycle is outside of the dashed box and describes the basic input-output behaviour of a predictor. A user configures a new configuration $x$ for System $A$ and asks the predictor (dashed box) for a prediction. It replies with a quantitative prediction for $x$'s performance.
+The first cycle is outside of the dashed box and describes the basic input-output behaviour of a predictor. A user configures a new configuration $\x$ for System $A$ and asks the predictor (dashed box) for a prediction. It replies with a quantitative prediction for $\x$'s performance.
 
-In the second cycle a actual prediction is generated based on decision rules which themselves are created by simplifying a performance model. Random samples are used to learn the performance model.\\
-Like other approach, the target of variability aware performance prediction is to get accurate predictions with only using a small amount of samples for the creation of the performance model.
+In the second cycle a actual prediction is generated based on decision rules which themselves are inturn created by simplifying a performance model (a \CART). Random sampling is used to learn the performance model.
+\\\\
+Like other approaches, the target of variability aware performance prediction is to get accurate predictions with only using a small sample for the creation of the performance model.
 
 \FloatBarrier %forces the float to appear below the subsubsection
-\subsubsection{Statistical Methods}\label{sec:VAPPMethods}  are used to perform the actual computation. First of all a configuration is defined as an $N$-tuple $(x_1,x_2,x_3,...,x_N)$, where $N$ is the number of all available features. Each $x_i$ represents a feature and can either have the value 1 or 0 depending on whether the feature is selected or not. An actual configuration example would be $\x_j = (x_1=1,x_2=0,x_3=1,\dots,x_N = 1)$. All valid configurations of a system are denoted as $\X$.\\
-To each configuration $\x_j$ an actual performance value $y_j$ can be assigned. $\Y$ denotes the performance of all configurations of a system.\\
-%It is assumed that all $x_i\in\mathrm{x}_j$ influence the performance of a system. So all of them are considered \textit{predictors}. $y_j$ is the seen as the \textit{response}.
-Combining $\Y$ with $\X_S\subset\X$ gives a sample $S$. Now the two problems arise that variability aware performance prediction tries to solve:
+\subsubsection{Statistical Methods}\label{sec:VAPPMethods} are used to perform the actual computation. First of all a configuration is defined as an $N$-tuple $(x_1,x_2,x_3,...,x_N)$, where $N$ is the number of all available features. Each $x_i$ represents a feature and can either have the value 1 or 0 depending on whether the feature is selected or not. An actual configuration example would be $\x_j = (x_1=1,x_2=0,x_3=1,\dots,x_N = 1)$. All valid configurations of a system are denoted as $\X$.\\
+
+\VAPP~uses the tupel definition of a configuration. It further defines that for each configuration of $\mathcal{C}$ an actual performance value $y_j$ can be assigned. $\Y$ denotes the performance of all configurations of a system.\\
+For formal correctness it is assumed that each option of a configuration actually influences the performance of the system. Otherwise a \CART could not be applied.
+
+Combining $\Y_\X$ with $\X_\mathcal{C}\subset\mathcal{C}$ gives a sample $S$. $\Y_\X$ are the to $\X_C$ associated and measured performance values. Now the two problems arise that \VAPP tries to solve:
 \begin{enumerate}
-	\item Predict the performance of the not measured configurations $\hat{=}\;\X\backslash\X_S$.
-	\item ``Given a sample $S$, the problem is to find a function $f$ that reveals the correlation between $\X_S$ and $\Y_S$ and that makes each configuration’s predicted performance $f(x)$ as close as possible to its actual performance $y$, i.e.:
+	\item Predict the performance of the not measured configurations $\hat{=}\;\X\backslash\X_\mathcal{C}$.
+	\item Find a function $f$ that shows the correlation between $\X_\mathcal{C}$ and $Y_\X$ and that makes each predicted performance $f(\x)$ of $\x$ as close as possible to its actual performance.\\	
 	\begin{equation}
-	f : \X \rightarrow  \mathbb{R} \text{ such that} \sum_{\x,y \in S} L(y,f(\x)) \text{ is minimal}
-	\end{equation} 	where $L$ is a loss function to penalize errors in prediction.''\cite{VariabilityAwarePerformancePredictionJianmeiSigmundApel}
+	f : \mathcal{C} \rightarrow  \mathbb{R} \text{ such that} \sum_{\x,y \in S} L(y,f(\x)) \text{ is minimal}
+	\end{equation}\\
+	 $L$ is a loss function to penalize errors in prediction.
 \end{enumerate}
 This is done with the help of CART. All sample configurations get categorized into a binary trees leafs. A configurations selection of features determines its location in the tree. The distribution of samples inside the tree is determined with the goal of minimizing the total prediction errors per segment (sub-trees). An example tree can be found in \cref{fig:VAPPExampleTree}.
 For each leaf one can determine the \textit{local model} $\ell$

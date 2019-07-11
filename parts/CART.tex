@@ -1,24 +1,22 @@
 \subsection{Classification and Regression Trees}
 \label{sec:CART}
-The next 3 approaches all use a specific type of machine learning strategy to construct their predictors. This method is call Classification and Regression Tree's (\CART).
-To create a \CART one first needs some data points. In the context of configurable software systems each point consists at least out of a configuration and an associated performance score. These data point are then fed into the algorithm seen in
- \cref{alg:CART}.
-\begin{figure}
+The next 3 approaches all use a specific type of machine learning strategy to construct their predictors. This method is call Classification and Regression Tree's (\CART). These trees are typically binary trees that divide the given data points into small enough groups so a direct local prediction can be done.
+These local prediction are than combined into a global predictor \cite{VariabilityAwarePerformancePredictionJianmeiSigmundApel}. In the context of configurable software systems each point consists at least out of a configuration and an associated performance score. These data point are then fed into the algorithm seen in \cref{alg:CART}.
+\begin{figure}[h]
 	\lstset{
 		mathescape,
 		breaklines=true,
 	}
 	\begin{lstlisting}
-1. Start at the root node, add all data points to it.
-2. For each option, find the set of options that minizes the sum of the node impurities in the two child nodes.
-3. If a stopping criterion is reached, exit. Otherwise, apply step 2 to each child node inturn.
+1. Start at the root node. Assign all configurations to it.
+2. For each option, find the set of options $X$ that minizes the sum of the node impurities in the two child nodes. Divide the configurations assigned to the current node based on $X$ into two disjoint sets and assign those to the corresponding child nodes.
+3. If a stopping criterion is reached, exit. Otherwise, apply step 2 and 3 to each child node inturn.
 	\end{lstlisting}
-	\captionof{lstlisting}{Pseudocode for generating a \CART. Adopted from \citet{ClassificationAndRegressionTrees}.}
+	\captionof{lstlisting}{Pseudocode for generating a \CART. Adopted from \citet{ClassificationAndRegressionTrees} to fit software configurations.}
 	\label{alg:CART}
 \end{figure}
-\TODOX{beenden}
-
-\begin{figure}
+The node impurity is typically calculated by the square mean error. As a stopping criteria the size of the leaf node is used \cite{VariabilityAwarePerformancePredictionJianmeiSigmundApel}. The size of the predictor variables set $X$ is usually 1.
+\begin{figure}[h]
 	\centering
 	\includegraphics[page=4,clip,trim=3.5cm 18cm 3.5cm 1.5cm, width=\linewidth]
 	{Paper/VariabilityAwarePerformancePredictionAStatisticalLearningApproach.pdf}

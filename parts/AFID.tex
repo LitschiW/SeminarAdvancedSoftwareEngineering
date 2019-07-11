@@ -2,8 +2,23 @@
 
 \subsection{Automated Feature Interaction Detection}\label{sec:AFID}
 
-Automated feature interaction detection (AFID) is a measurement-based approach to predicting the performance of a highly configurable system.
-It was developed by \citet{AutomatedFeatureDetectionSiegmund2012}. Unlike other methods it does not depend on machine learning but rather tires to directly identify the performance impact of each feature or a combination of features. This method reached a precision of up to 95\% in the experiment conducted by  \citet{AutomatedFeatureDetectionSiegmund2012}.
+Automated feature interaction detection (\AFID) is a measurement-based approach to predicting the performance of a highly configurable system.
+It was developed by \citet{AutomatedFeatureDetectionSiegmund2012}. The following section is also based on the proposing paper of \AFID~\cite{AutomatedFeatureDetectionSiegmund2012}. 
+
+Under the usage of linear regression \AFID~tries to determine a performance influence value for each feature and feature interactions. A feature interaction is defined as a unexpected influence on the performance of a system when using a specific feature combination.
+In the conducted experiments of \citet{AutomatedFeatureDetectionSiegmund2012} and \citet{CostEfficientSampling_Gou_Siegmund_2015} this method reaches average accuracies of  respectively 95\% and 85\%.
+\\
+\noindent
+In general one can divide \AFID~into two different steps:
+\begin{enumerate}
+	\item Find interacting Features.
+	\item Measure the performance influence of feature interactions.
+\end{enumerate}
+For the first step some notation is needed. For simplicity \AFID is defined for binary options.
+The composition of using two (or more) features is denoted by a $\cdot$. This \textit{composition} is another way to describe a configuration.
+
+
+
 
 \subsubsection[Formulars]{\textnormal{Some} Formulars} are needed to descibe a Softwaresystem for AFID .
 The composition of using two (or more) units/features is denoted by $\cdot$ . This composition is also called a configuration \cite{VariabilityAwarePerformancePredictionJianmeiSigmundApel}.\\
