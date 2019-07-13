@@ -1,11 +1,11 @@
 \section{On the Applicability of the Brute Force Approach}
 \label{sec:BruteForce}
-As already mentioned in the Introduction: Brute Force measuring is not feasible in most cases \cite{AutomatedFeatureDetectionSiegmund2012}. But what is the actual reason behind this?
+As mentioned previously: \textit{brute force} measuring is not feasible in most cases \cite{AutomatedFeatureDetectionSiegmund2012}. But what is the actual reason behind this?
 Let's have a look at an example first:
 
-In one paper \citet{AutomatedFeatureDetectionSiegmund2012} measured all valid configurations of multiple programs to analyze the accuracy of \AFID. Berkley DB (C) was one of those programs. It is a database management program for embedded systems. It has 19 features and 2560 valid configuration. In the end it took approximately 426 hours (= 17.75 days) to measure all these configurations. This value corresponds to a time of about 10 minutes per configuration measurement. Considering that Berkley DB (C) is a comparably small program this is already a significant amount of time but still a considerable margin that can actually be used to get perfect results.
+In one paper, \citet{AutomatedFeatureDetectionSiegmund2012} measured all valid configurations of multiple programs to analyse the accuracy of \AFID. Berkley DB (C) was one of those programs. It is a database management program for embedded systems. It has 19 features and 2560 valid configuration. In the end, it took approximately 426 hours (= 17.75 days) to measure all these configurations. This value calculates to a time of about 10 minutes per configuration measurement. Considering that Berkeley DB (C) is a comparably small program, this is already a significant amount of time but still a time span that might be acceptable be used to get the perfect results of a \textit{brute force} approach.
 
-This changes once one takes a look at larger programs. As mentioned in the Introduction: modern applications like Apache or MySQL can have hundreds of configurable parameters \cite{YouveGivenMeTooManyKnobs}. Another example was displayed by \citet{VAMOSConference}: SQLite has 77 features that produced $3 \cdot 10^{77}$ valid configurations. Unfortunately there is no evidence how the latter number was calculated. Yet we can assume that at least the scale of this number in regards to the number of features is correct. This is explained in the next paragraph. Coming back to the example: Assuming measuring (compiling + profiling) one configuration would take 5 minutes, a brute-force approach would take $2.5 \cdot 10^76$ hours. This is obviously not an acceptable duration.
+This changes once one takes a look at larger programs. Modern applications like Apache or MySQL can have hundreds of configuration parameters \cite{YouveGivenMeTooManyKnobs}. Another example was displayed by \citet{VAMOSConference}: SQLite has 77 features that can produce $3 \cdot 10^{77}$ valid configurations. Unfortunately, there is no evidence how the latter number was calculated. Yet, it can be assumed that at least the scale of this number in regard to the number of features is correct. This will be explained in the next paragraph. Coming back to the example: Assuming measuring (compiling + profiling) one configuration would take 5 minutes, a brute-force approach would take $2.5 \cdot 10^{76}$ hours. Obviously, this is not an acceptable duration.
 
 \begin{wrapfigure}{r}{0.5\textwidth}
 	%\setlength\belowcaptionskip{-\baselineskip}
@@ -15,17 +15,17 @@ This changes once one takes a look at larger programs. As mentioned in the Intro
 	\label{fig:FeatureModel}
 \end{wrapfigure}
 
-To find out why \textit{brute-force} does not scale well one needs to have a generic look at how many configurations per program are need to be measured. This set of all valid configurations can be written down as a \textit{Feature Model}. An example for this can be seen in \cref{fig:FeatureModel}. This graph describes the software system called \inlineQuote{Database System}. \textit{Features Models} can be annotated with further logical expressions for more complicated configuration conditions. Such can also be seen in the just mentioned example. Each \textit{Features Model} can also be written down as a logical expression. The atomic variables of this expression are the options of the software system. In this context a configuration is written down as an assignment of each variable of the expression. The tree as seen in \cref{fig:FeatureModel} is equivalent to the function
+To find out why \textit{brute-force} does not scale well, a generic look at how many configurations per program are needed to be measured helps. This set of all valid configurations can be written down as a \textit{Feature Model}. An example for this is shown in \cref{fig:FeatureModel}. This \textit{feature model} describes the software system called \inlineQuote{DatabaseSystem}. \textit{Feature Models} can be annotated with further logical expressions to also contain cross-feature constraints. Such can also be seen in the just mentioned example. Each \textit{Feature Model} can also be written down as a logical expression. The atomic variables of this expression are the options of the software system. In this context, a configuration is written down as an assignment of each variable of the expression. The tree in \cref{fig:FeatureModel} is equivalent to the function
 \begin{equation*}
 	V(C)= \text{Base} \land (\text{Version1.5} \oplus \text{Version2.1}) \land (\text{Version1.5} \Rightarrow \neg \text{DBServer}).%Punkt gehört zum Satz
 \end{equation*}
-For $V(C)=1$ a configuration is considered \textit{valid}. Otherwise it is not accepted.
-A example configuration could look like this:
+For $V(C)=1$, a configuration is considered \textit{valid}. Otherwise, it is not accepted.
+An example configuration could look like this:
 \begin{align*}
 	\textbf{DEFAULT} =  \{&\text{Base} = 1, \text{Version1.5}=0, \text{Version2.1} = 1, \\
 	&\text{DBServer} =0, \text{SearchEngine} =0 \}
 \end{align*}
-Note that these logical expressions also can be applied to non binary options. The feature \inlineQuote{Base} of the example could also be expressed as a tertiary value:
+Note that these logical expressions can also be applied to non-binary options. The feature \inlineQuote{Base} of the example could also be expressed as a tertiary value:
 
 \begin{equation*}
 	\text{Base} =  \begin{cases}
@@ -34,12 +34,12 @@ Note that these logical expressions also can be applied to non binary options. T
 		2, \text{Version2.1 selected}
 	\end{cases}
 \end{equation*}
-In this case $V(C)$ would equal
+In this case, $V(C)$ would look like this:
 \begin{equation*}
 		V(C)= (\text{Base} \Leftrightarrow 1 \lor \text{Base} \Leftrightarrow 2) \land \big((\text{Base} \Leftrightarrow 1) \Rightarrow \neg \text{DBServer}\big).
 \end{equation*}
-This could also be expanded onto non numeric options that are set by text. So it is established that set of valid configurations can be expressed as a logical formula.
+So it is established that set of valid configurations can be expressed as a logical formula.
 
-The in this context most interesting property of this formula is the scaling of the number of valid configuration in regards to the number of options. Without loss of generality one can assume that a system only has numeric binary options. This can be done since all other types of options would just increase the overall number of options, yet already looking at binary options gives a satisfying result. Thats because naturally the total number of possible and valid configurations lies in the exponential space of $\mathcal{O}(2^{\#options})$. In other words: a \textit{configuration space} is an exponentially large. And thats also the reason why brute-force does not scale well.
+In this context the most interesting property of this formula is the scaling of the number of valid configurations in relation to the number of options. Without loss of generality, one can assume that a system only has numeric binary options. This can be done since all other types of options would just increase the overall number of options. However, already looking at binary options gives a satisfying result. Since naturally the total number of possible assignments for a logical expression is exponentially large, the number of valid configurations also lies in the exponential space of $\mathcal{O}(2^{\#options})$. In other words: a \textit{configuration space} that would have to measured for a \textit{brute force} approach would be exponentially large. That is the reason why brute-force does not scale well and more sophisticated methods are need for efficient predictions.
 
 

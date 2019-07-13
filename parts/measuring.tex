@@ -1,34 +1,35 @@
 \section{Measuring and Predicting the Performance of Highly Configurable Systems}\label{sec:measuring}
 
-By learning about the performance difference between multiple configurations it is possible accurately predict the a programs performance. This means that one does not need ot measure all (possibly exponentially many) configurations. Instead a small sample size should be enough to predict a programs performance. Multiple ways that use different methods have been proposed over time \cite{FasterDiscoveryofFasterSystemConfigurationsSiegmund2017}. This paper will take a look at
+By learning about the performance difference of multiple configurations it is possible to predict a program's performance accurately. This means, that not all (possibly exponentially many) configurations need to be measured. Instead, a small sample size should be enough to predict a program's performance. Multiple ways that use different methods have been proposed over time \cite{FasterDiscoveryofFasterSystemConfigurationsSiegmund2017}. This paper will take a look at
 \begin{itemize}
 	\item \hyperref[sec:AFID]{Automated Feature Interaction Detection} by \citet{AutomatedFeatureDetectionSiegmund2012},
 	\item an \hyperref[sec:VAPP]{incremental/statistical learning approach} by \citet{VariabilityAwarePerformancePredictionJianmeiSigmundApel},
 	\item \hyperref[sec:WHAT]{\textbf{WHAT}} a spectral learning approach by \citet{FasterDiscoveryofFasterSystemConfigurationsSiegmund2017},
-	\item \hyperref[sec:ProjectiveSampling]{Cost efficient sampling by \cite{CostEfficientSampling_Gou_Siegmund_2015}}
+	\item \hyperref[sec:ProjectiveSampling]{Cost efficient sampling by \citet{CostEfficientSampling_Gou_Siegmund_2015}}
 \end{itemize}
 
 \subsection{General Approach}
 
-\citet{VariabilityAwarePerformancePredictionJianmeiSigmundApel} define two problems that are to be solved by prediction approaches:
+\citet{VariabilityAwarePerformancePredictionJianmeiSigmundApel} defines two problems to be solved by prediction approaches:
 \begin{enumerate}
-	\item Predict the performance of a not measured configurations.
-	\item Find a function $f$ that shows the correlation between the properties of measured configurations and their performance value and that makes each predicted performance $f(\x)$ of a configuration $\x$ as close as possible to its actual performance.\\	
+	\item Predicting the performance of a not measured configurations.
+	\item Finding a function $f$ that shows the correlation between the properties of measured configurations and their performance value and that makes each predicted performance $f(\x)$ of a configuration $\x$ as close as possible to its actual performance.\\	
 	\begin{equation}
 	f : \mathcal{C} \rightarrow  \mathbb{R} \text{ such that} \sum_{(\x,y) \in S} L(y,f(\x)) \text{ is minimal}
 	\end{equation}\\
-	$S$ is a sample and	$L$ is a loss function to penalize errors in prediction. $(\x,y)$ is a pair of a configuration and its measured performance value.
+	$S$ is a sample and	$L$ is a loss function to penalize errors in prediction. $(\x,y)$ is a pair of a configuration and its measured performance value. The function $f$ is sometimes called the \textit{performance model} of the system.
 \end{enumerate}
 
 \noindent
-There is a general pattern for the solution of those problems that comes apparent when looking at different prediction approaches. It can be devided into two steps which can be seen in \cref{fig:GeneralApproach}.\begin{figure}
+There is a general pattern for the solution of those problems that comes apparent when looking at different prediction approaches. It can be divided into two steps as displayed in \cref{fig:GeneralApproach}.\begin{figure}
 	\includegraphics[page=9,clip,trim=4.1cm 5.9cm 3.9cm 19.4cm, width=\textwidth]{presentation/presentation}
-	\caption{General pattern of prediction. Images from \cite{VAMOSConference}.}	\label{fig:GeneralApproach}
+	\caption{General pattern of prediction approaches. }
+	\label{fig:GeneralApproach}
 \end{figure}
 
-The first step is to sample the exponential configuration space. This means finding configurations from which can be learned about the system. This is done by using effient sampling techniques like spectral sampling \cite{DistanceBasedSampling2019} or progressive sampling \cite{CostEfficientSampling_Gou_Siegmund_2015}.
+The first step is to sample the exponential configuration space. This means finding configurations from which can be learned about the system. This is done by using efficient sampling techniques like spectral sampling \cite{DistanceBasedSampling2019} or progressive sampling \cite{CostEfficientSampling_Gou_Siegmund_2015}.
 
-Once enough and meaningful configurations are found the learning process starts. Usually the previously chosen configurations are measured, under the condition that this was not already done whilst sampling. The measurement results are fed to a learning process. A lot of different machine learning strategies can be applied \cite{VAMOSConference}. The relative papers typically use \CART's. Those will be explained further in \cref{sec:CART}.
+Once enough and meaningful configurations are found, the learning process starts. Usually the previously chosen configurations are measured, under the condition that this was not already done whilst sampling. The measurement results are fed to a learning process. A lot of different machine learning strategies can be applied \cite{VAMOSConference}. The relative papers typically use \CART's. Based on the found performance model continuing tasks like finding near optimal solutions or in-depth performance analysis can be done \cite{VAMOSConference}.
 
 
 %\input{parts/ApproachestoPerformancePrediction}

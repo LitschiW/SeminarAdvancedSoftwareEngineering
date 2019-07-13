@@ -1,12 +1,18 @@
 
 \section{Introduction} \label{sec:introduction}
 
-As modern programs grow larger and more powerful they also provide a lot of configurable parameters to their customers. In some cases the number of parameters can be even greater than 500. Examples for this can be found in \cref{fig:paramters}. With this large amounts of configuration options stake holders or customers can be satisfied easier since they can tailor a program to the their specific requirements. But with this large amount of options comes a bigger problem: \inlineQuote{Unpredictability}. Looking at an example of Apache Storm (\cref{fig:ApacheStorma}) shows that the performance of two configurations of a program can differ significantly. \cref{fig:ApacheStormb} shows that solely changing a single parameter can increase the response time of Apache Storm by up to 100\%. Without using prediction methods such results are only visible after executing and measuring multiple, if not all, configurations of a system. Or in other words: when looking only at a single configuration, one cannot conclude whether that configuration is any good for the current requirements in.
+As modern programs grow larger and more powerful they also provide many configuration opportunities to their customers. In some cases the number of parameters can be even greater than 500. Examples for this can be found in \cref{fig:paramters}. With this large amounts of configuration options stakeholders or customers can be satisfied easier since they can tailor a program to their specific requirements. But with this large amount of options comes a bigger problem: \inlineQuote{Unpredictability}. Looking at an example of Apache Storm (\cref{fig:ApacheStorma}) shows that the performance of two configurations of a program can differ significantly. \cref{fig:ApacheStormb} shows that solely changing a single parameter can increase the response time of Apache Storm by up to 100\%. Without using prediction methods such results are only visible after executing and measuring multiple, if not all, configurations of a system. Or in other words: when looking only at a single configuration, one cannot conclude whether that configuration is any good for the current requirements in.
 
-This is where prediction comes into play. By learning about the performance of some configurations of the system it tries to generates a function that can give an expected performance for a not measured configuration. This can be used to solve the just mention problem of finding a near optimal solution.
-Further performance prediction can be used to find default configurations. These should be configurations that fulfills most requirements to an acceptable level. 
-The most straight forward  approach to this problem would be a \textit{brute-force} solution. In this case that would mean measuring each and every single valid configuration. As we will see later in \cref{sec:BruteForce} this approach is in general not feasible since the amount of valid configurations scales exponentially with the number of parameters. For that reason other approaches had to be found and especially the efficient sampling of a configuration space turned out to be a problem \cite{CostEfficientSampling_Gou_Siegmund_2015}.
+This is where prediction comes into play. By learning about the performance of some configurations of the system it tries to generate a function that can give an expected performance for a not measured configuration. This can be used to solve the just mentioned problem of finding a near optimal solution.
+Furthermore, performance prediction can be used to find default configurations. These should be configurations that fulfils most requirements to an acceptable level. 
+The most straightforward  approach to this problem would be a \textit{brute-force} solution. In this case that would mean measuring each and every single valid configuration. As we will see later in \cref{sec:BruteForce} this approach is in general not feasible since the amount of valid configurations scales exponentially with the number of parameters. For that reason other approaches had to be found and especially the efficient sampling of a configuration space turned out to be a problem \cite{CostEfficientSampling_Gou_Siegmund_2015}.
 
+\begin{figure}[h!]
+	\centering
+	\includegraphics[clip,trim= 11cm 13cm 2cm 7cm]{Paper/thirdParty/HeyYouHaveGivenMeTooManyKnobs.pdf}
+	\caption{Number of parameters of different popular programs \cite{YouveGivenMeTooManyKnobs}.}
+	\label{fig:paramters}
+\end{figure}
 \begin{figure}[h]
 	\begin{subfigure}{.45\linewidth}
 		\centering
@@ -22,25 +28,21 @@ The most straight forward  approach to this problem would be a \textit{brute-for
 		\caption{Possible influences of only two options on the latency of Apache Storm. }
 		\label{fig:ApacheStormb}
 	\end{subfigure}
-	\caption{Measurements done for Apache Strom that show an configurations can have a significant influence on the performance of a software system.}
+	\caption{Measurements done for Apache Strom which shows that configurations can have a significant influence on the performance of a software system.}
 	\label{fig:ApacheStorm}
-\end{figure}
-\begin{figure}[h!]
-	\centering
-	\includegraphics[clip,trim= 11cm 13cm 2cm 7cm]{Paper/thirdParty/HeyYouHaveGivenMeTooManyKnobs.pdf}
-	\caption{Number of parameters of different popular programs \cite{YouveGivenMeTooManyKnobs}.}
-	\label{fig:paramters}
 \end{figure}
  
 \newpage\noindent
-This paper will focus on showing different approaches and strategies to predicting the performance of a configurable software system. It will mainly discuss approaches developed by Norbert Siegmund et al. \cite{AutomatedFeatureDetectionSiegmund2012,VariabilityAwarePerformancePredictionJianmeiSigmundApel,CostEfficientSampling_Gou_Siegmund_2015, DistanceBasedSampling2019}. They will be explained and compared. More specifically this paper will have a look at 4 different approaches besides \textit{brute-force}.
+This paper will focus on showing different approaches and strategies to predicting the performance of a configurable software system. It will mainly discuss approaches developed by Norbert Siegmund et al. \cite{AutomatedFeatureDetectionSiegmund2012,VariabilityAwarePerformancePredictionJianmeiSigmundApel, CostEfficientSampling_Gou_Siegmund_2015, DistanceBasedSampling2019}. They will be explained and compared. More specifically, this paper will have a look at four different approaches besides \textit{brute-force}.
 
-The first discussed technique is \textit{Automated Feature Interaction Detection} (\AFID) \cite{AutomatedFeatureDetectionSiegmund2012}. The goal of this approach is to assign a performance influence value to each feature and feature interaction. This is done by observing and measuring the behavior of certain configurations. 
+The first discussed technique is \textit{Automated Feature Interaction Detection} (\AFID) \cite{AutomatedFeatureDetectionSiegmund2012}. The goal of this approach is to assign a performance influence value to each feature and feature interaction. This is done by observing and measuring the behaviour of certain configurations. 
 The other 4 approaches make use of a CART Tree as their learning choice but differ in the way they choose their sample.
  
 \textit{Variability Aware Performance Prediction} (\VAPP) \cite{VariabilityAwarePerformancePredictionJianmeiSigmundApel} uses random sampling to pick which configurations to compile and measure. 
 
-\WHAT~ \cite{DistanceBasedSampling2019}, as the next approach is called, tires a more mathematical way to find groups of similar configurations without actually measuring them. For this distance based clustering/sampling is used. 
+\WHAT~ \cite{DistanceBasedSampling2019}, tires a more mathematical way to find groups of similar configurations without actually measuring them. For this distance based clustering/sampling is used. 
 
-The last two sampling approaches are proposed in the same paper by \citet{CostEfficientSampling_Gou_Siegmund_2015}. They \textit{Progressive} and \textit{Projective Sampling} are quite similar, since they both take advantage of the fact, that the general formular behind a learning curve is known. With this knowledge they generate a part of the actual curve and fit a function to it. Based on this function a optimal size for the actual sample set can be calculated. Both methods also take the cost of measurements and over-/underfitting into consideration.\\
-All these approaches can reach accuracies of over 94\% on average in the conducted tests of their corresponding papers. This makes them good enough to be relevant for the topic of this paper.
+The last two sampling approaches are proposed in the same paper by \citet{CostEfficientSampling_Gou_Siegmund_2015}. 
+
+\textit{Progressive} and \textit{Projective Sampling} are quite similar, since they both take advantage of the fact, that the general formula behind a learning curve is known. With this knowledge they generate a part of the actual curve and fit a function to it. Based on this function an optimal size for the actual sample set can be calculated. Both methods also take the cost of measurements (resources and accuracy) into consideration.\\
+All these approaches can reach accuracies of over 94\% on average in the conducted tests of their corresponding papers. This makes them good enough to be relevant for the topic of this paper. Further their results can be compared straightforwardly since they are all tested on the same set of 6 software systems: Berkeley DB C, Berkeley DB Java, Apache, SQLite, LLVM, x264.
