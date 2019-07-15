@@ -1,13 +1,14 @@
     
-    presented approaches (short overview)
-
-    brute force
+    CESAMPLES
+        General setup
+            general process
+            perfromance model is cart
+            sample picking
+            
     
-
-    Random Sampling
-    
-    Distance based Sampling
-
     Comparisson of Methods
+
+    Other Sampling 
+        t-wise sampling
 
     Future/Current Research
