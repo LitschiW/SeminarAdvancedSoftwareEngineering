@@ -1,30 +1,28 @@
 \section{Comparison of methods}
 \begin{figure}[t]
 	\centering
-	\captionof{table}{Measureing results of \citet{FasterDiscoveryofFasterSystemConfigurationsSiegmund2017} when comparing the methods of, \AFID(Siegmund), \VAPP(Gou), \WHAT~and projective sampling in combination with CARTs(Sarkar). The \textit{Rank} column is computed using Scott-Knott, bootstrap 95\% confidence, and A12 test.}	
+	\captionof{table}{Measureing results of \citet{FasterDiscoveryofFasterSystemConfigurationsSiegmund2017} when comparing the methods of, \AFID(Siegmund), \VAPP(Gou), \WHAT~and projective sampling in combination with CARTs (Sarkar). The \textit{Rank} column is computed using Scott-Knott, bootstrap 95\% confidence, and A12 test \cite{FasterDiscoveryofFasterSystemConfigurationsSiegmund2017}.}
 	\label{tab:ConclusionPerformanceOverview}
 	\vspace{-.5\baselineskip}
 	\includegraphics[page=19, clip=true, trim=2.5cm 13.8cm 6.8cm 3.1cm, width=.9\linewidth]{"Paper/Faster Discovery of Faster System Configurations with Spectral Learning".pdf}
 	\vspace{-1\baselineskip}	
 \end{figure}
-\cref{tab:ConclusionPerformanceOverview} displays the results of an experiment conducted by \citet{FasterDiscoveryofFasterSystemConfigurationsSiegmund2017} to compare different prediction methods. The table shows some characteristic properties of each approach. For example is the standard deviation of \WHAT~only 2.98\%. Having a low standard deviation was one fo the goals of \What. 
+\cref{tab:ConclusionPerformanceOverview} displays the results of an experiment conducted by \citet{FasterDiscoveryofFasterSystemConfigurationsSiegmund2017}, to compare the different prediction methods. The table shows some characteristic properties of each approach.
 
-Siegmund's approach of \AFID was ranked last on 4 occasions. Its accuracy and standard deviation are the worst in most cases. It mostly ranks lower than \VAPP with the same sample size (Guo(PW)). \WHAT~is the oldest of the presented approaches and its low ranking can be seen as a demonstration on how prediction algorithms evolved over time.
+Siegmund's approach of \AFID~was ranked last on 4 occasions. Its accuracy and standard deviation are the worst in most cases. It mostly ranks lower than \VAPP~whilst utilizing same sample size (Guo(PW)). \WHAT~is the oldest of the presented approaches and its low ranking can be seen as a demonstration on how prediction algorithms evolved over time.
 
-Sarkar's approach of using cost-efficient sampling in combination with CARTs ranked best in four out of the six cases. In the remaining twp cases it had still an acceptable accuracy. But this consistent high accuracy comes with the cost of using larger samples then other methods. In the case of SQLite, the sample was 15 times larger than the sample of the next best approach \WHAT. 
+Both versions of \VAPP~appear inconsistently with regard to their rank. Gou(PW) ranks lower than Gou(2N) in half of the six occasions. Generally the version which used a larger sample had a slightly better accuracy, but also suffered from a larger standard deviation. The results show that \VAPP's predictions might not be consistent for not sufficiently large enough samples. This could be attributed to the complete randomness of configuration picking.
 
+Sarkar's approach of using cost-efficient sampling in combination with CARTs ranked best in four out of the six cases. In the remaining two cases it still had an acceptable accuracy. But this consistent high accuracy comes with the cost of using larger samples then other methods. In the case of SQLite, the sample was 15 times larger than the sample of the next best approach \WHAT. 
 
-In conclusion 
-
-
-If time and resources are available or a program is sufficiently small, \textit{brute force} can be applied to get perfect results.\textsl{} 
-
-
-
+Considering all tests \WHAT~had an average standard deviation of only 2.98\%. Having such a low standard deviation was the main goal of \WHAT. When comparing it to other methods, it consistently has a below average standard deviation and an above average accuracy. Since \WHAT is also the most recent approach, this further confirms the progress that was made in recent years.
 
 \FloatBarrier
-\section{Further and Future Work}
+\section{Continuing, Related and Future Work}
 
 
 
 \section{Conclusion}
+
+There are many techniques for learning and predicting the performance of a configurable software system. This paper had a look at different approaches developed by N. Siegmund et al. In the end, if enough time and resources are available or a program is sufficiently small, \textit{brute force} can be applied to get perfect prediction results. But since \textit{brute force} does not scale well, more sophisticated methods were developed. Most of those methods produce acceptable results of over 90\% accuracy in many cases. But there is no 'best approach' to this problem. Which method a predictor should use is always a question of finding a balance between the size of the sample, the accuracy of the predictions and the applicability of the approach.
+
