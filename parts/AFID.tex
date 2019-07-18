@@ -4,101 +4,82 @@
 
 Automated feature interaction detection (\AFID) is a measurement-based approach to predicting the performance of a highly configurable system.
 It was developed by \citet{AutomatedFeatureDetectionSiegmund2012}. The following section is also based on the proposing paper of \AFID~\cite{AutomatedFeatureDetectionSiegmund2012}. 
-
-Under the usage of linear regression \AFID~tries to determine a performance influence value for each feature and feature interactions. A feature interaction is defined as a unexpected influence on the performance of a system when using a specific feature combination.
-In the conducted experiments of \citet{AutomatedFeatureDetectionSiegmund2012} and \citet{CostEfficientSampling_Gou_Siegmund_2015} this method reaches average accuracies of  respectively 95\% and 85\%.
+\noindent
+Under the usage of linear regression \AFID~tries to determine a performance influence value for each feature and feature interaction. A \textit{feature interaction} is defined as a unexpected influence on the performance of a system when using a specific feature combination.
+In the conducted experiments of \citet{CostEfficientSampling_Gou_Siegmund_2015} and \citet{AutomatedFeatureDetectionSiegmund2012} this method reaches average accuracies of 85\% and 95\% respectively.
 \\
 \noindent
-In general one can divide \AFID~into two different steps:
+The gereral process of \AFID~is displayed in \cref{fig:AFIDGerneral}.
+It can be divided into two different steps:
 \begin{enumerate}
-	\item Find interacting Features.
-	\item Measure the performance influence of feature interactions.
-\end{enumerate}
-For the first step some notation is needed. For simplicity \AFID is defined for binary options.
-The composition of using two (or more) features is denoted by a $\cdot$. This \textit{composition} is another way to describe a configuration.
+	\item Finding interacting Features.
+	\item Measuring the performance influence of feature interactions.
+\end{enumerate} 
+\begin{figure}
+	\centering
+	\scalebox{.8}{
+		\includesvg{figures/AFIDGeneral}
+	}
+	\caption{General steps of \AFID.}
+	\label{fig:AFIDGerneral}
+\end{figure}
+\noindent
+For the first step some notation is needed. For simplicity \AFID~is defined for binary options.
+The composition of performance influencing units (features or feature interactions) is denoted by a $\cdot$. In case two features are used simultaneously it is denoted by using a $\times$. This would also be another way to describe a configuration. So a program $P$ that uses the two features $a$ and $b$ can be denoted as $P= a \times b$.\\
+If one now wants to know the performance of $P$, they have to calculate $\Pi(P)$. The exact definition of the performance influence determining function $\Pi$ can be found in the paper of \citet{AutomatedFeatureDetectionSiegmund2012}. For now, it is important to note that when calculating $\Pi(P)=\Pi(a \times b)$ not only the performance influence of $a$ and $b$ are necessary but also has $a\#b$ has to be considered. The latter is the performance influence of the possible interaction between $a$ and $b$. So $\Pi(a \times b) = \Pi(a\#b) + \Pi(a) + \Pi(b)$. This can also go into higher order interaction: When using a program configuration $P_2 = a \times b \times c$ then $\Pi(P_2) = \Pi(a) +  \Pi(b) +  \Pi(c) +  \Pi(a\#b) +  \Pi(a\#c) +  \Pi(b\#c) +  \Pi(a\#b\#c)$. Some interactions do not exist or have an influence on the system, those who actually have to be found and measured. Otherwise, one could end up doing a brute-force solution again.\\\\
 
-
-
-
-\subsubsection[Formulars]{\textnormal{Some} Formulars} are needed to descibe a Softwaresystem for AFID .
-The composition of using two (or more) units/features is denoted by $\cdot$ . This composition is also called a configuration \cite{VariabilityAwarePerformancePredictionJianmeiSigmundApel}.\\
-The interaction of two features is denoted by $a\#b$. By combining both we get a feature interaction:
-\begin{equation}
- a \times b = a\#b \cdot a \cdot b
-\end{equation} 
-This equation expresses, that when using both $a$ and $b$ we also need to consider their interaction $a\# b$. Note that either $a$ or $b$ can also be a configuration.\\
-Further Sigmund uses an abstract performance function $\Pi$ that is used to represent some performance value of a configuration:
-\begin{align}
-\Pi(a \cdot b) &= \Pi(a) + \Pi(b)\label{eq:featureInteraction_SimplePerformance}\\
-\Pi(a\#b) &= \Pi(a \times b) - (\Pi(a) + \Pi(b))\\
-\Pi(a \times b) &=  \Pi(a\#b) + (\Pi(a) + \Pi(b))\label{eq:featureInteraction_InteractionPerformances}
-\end{align}
-Following that the performance of a program $P = a \times b \times c$ can be written down as
-\begin{equation}\label{eq:featureInteraction_ProgrammPerformance}
-\Pi(P) = \Pi(a) +  \Pi(b) +  \Pi(c) +  \Pi(a\#b) +  \Pi(a\#c) +  \Pi(b\#c) +  \Pi(a\#b\#c). 
+Finding these interactions requires to find the related interacting features themselves first.
+This is done in by intelligently measuring certain configurations. \AFID~defines a feature $a$ as interacting when
+\begin{equation}\label{def:equation}
+a \text{ interacts} \Leftrightarrow \exists C,D \subseteq \mathcal{C}| C \neq D  \land	 |\Delta a_C - \Delta a_D| \leq t
 \end{equation}
-The Problem with the equations \ref{eq:featureInteraction_SimplePerformance}-\ref{eq:featureInteraction_ProgrammPerformance} is that they assumes that we can measure the performance of a feature in isolation. This is in general not possible \cite{AutomatedFeatureDetectionSiegmund2012}. Also we are still in the space of $\mathcal{O}(2^n)$ of possible configurations that we need to measure.  
-To reduce this Sigmund et al. uses a interaction \textit{delta}. 
+with 
 \begin{equation}
 \begin{split}
 \Delta a_C &= \Pi(C\times a) - \Pi(C)\\
-&=\Pi(a\# C) + \Pi(a)
+&=\Pi(a\# C) + \Pi(a).
 \end{split}
 \end{equation}
-Where $C$ is a base configuration. This formula describes how the performance influence ($\Delta$) of $a$ on a configuration $C$ can be calculated. Its either the performance difference between using $C$ with and without $a$, or the performance influence of $a$ itself plus the influence of the interaction between $C$ and $a$.\\
-As a general approach to reduce its search space AFID looks at:\\
-\begin{minipage}{\textwidth}
-\begin{equation}
-	\Delta a_{min} = \Pi(a \times min(a)) - \Pi(min(a))
-\end{equation}
-\begin{center}
-	and
-\end{center}
-\begin{equation}
-	\Delta a_{max} = \Pi(a \times max(a)) - \Pi(max(a))
-\end{equation}
-\end{minipage}\\[0.3cm]
- Where $min(a)$ is a valid minimal configuration not containing $a$ but to which $a$ can be added to create another valid configuration. $max(a)$ is a valid maximal configuration not containing $a$ but to which $a$ can be added to create another valid configuration.\\
- \subsubsection[Automated Feature Interaction Detection]{\textnormal{For} AFID} 
-one first needs to define when a feature is interacting. For this \citet{AutomatedFeatureDetectionSiegmund2012} use the definition of 
- \begin{equation}
- a \text{ interacts} \Leftrightarrow \exists C,D | C \neq D  \land	 \Delta a_C \neq \Delta a_D .
- \end{equation}
- $C~=~min(a)$ and $D~=~max(a)$ are chosen to find interacting features and to reduce the search space for $C$ or $D$ from $\mathcal{O}(2^n)$ to $\mathcal{O}(n)$. By measuring $\Delta a_{min(a)}=\Delta a_C$ and $\Delta a_{max(a)}=\Delta a_D$ for each feature some first information about their behavior can be obtained. If both values for a feature $a$ are similar it does not interact with the features of $max(a)\backslash min(a)$. Otherwise $a$ is marked as interacting. In both cases it can still interact with the features of $min(a)$. In total 4 measurements per feature are required ($\Pi(a \times min(a))$, $\Pi(min(a))$, $\Pi(a\times max(a))$, $\Pi(max(a))$)\cite{AutomatedFeatureDetectionSiegmund2012}.\\
- Since most of the interacting features are known by now one can look for the groups of features whose interaction does have an influence on performance. Again the problem arises that there is an exponential number of possible combinations. Three heuristics are used to simplify the finding of these groups.
+$t$ is a threshold depending on the given performance metric.
+Using these two equations one can determine whether a feature is interacting with other features using 4 measurements.
+These include $\Delta a_{min} = \Pi(a \times min(a)) - \Pi(min(a))$ and $\Delta a_{max} = \Pi(a \times max(a)) - \Pi(max(a))$. $min(a)$ is a configuration that contains the minimum possible features without using $a$. Simultaneously $max(a)$ is also a configuration that contains the maximum amount of possible features without $a$. 
+Once these measurements are done \cref{def:equation} can be applied with $C=\Delta a_{min}$ and $D=\Delta a_{max}$. This is done for all features to find interacting ones.
+If a feature $f$ is not found to be interactive its performance influence $\Pi(f)$ equals $\Delta f_{min}$.
+
+Once all interacting features are found the search for the actual interactions starts. In this second step 3 different heuristics are used to determine which interactions are searched for.
  
  \newcommand{\oitem}[2]{{\item[{\parbox[t][0pt][t]{\leftmargin}{\raggedleft #1}}] {\parbox[t]{\textwidth-\leftmargin}{#2}}}}
  \begin{itemize}[leftmargin=4cm]
  	\setlength\itemsep{1em}
- 	\oitem{Pair-Wise~Heuristik (PW):\label{lab:PW}}{ Most groups of interacting features appear in the size of two\cite{AutomatedFeatureDetectionSiegmund2012,AnalysisOfTheVariabilityInFortyPreprocessor_BasedSPLLiebig}. So it makes sense to look for pair interaction first.}
+ 	\oitem{Pair-Wise~Heuristic (PW):\label{lab:PW}}{ Most groups of interacting features appear in the size of two \cite{AutomatedFeatureDetectionSiegmund2012,AnalysisOfTheVariabilityInFortyPreprocessor_BasedSPLLiebig}. So it makes sense to look for pair interaction first.}
  	\oitem{Higher-Order Interactions Heuristic (HO):\label{lab:HO}}{
- 		\citet{AutomatedFeatureDetectionSiegmund2012} only look at higher order interactions of the rank of three. More on this later.
+ 		\citet{AutomatedFeatureDetectionSiegmund2012} only look at higher order interactions of the rank of three. Even higher ranks would take up too many measurement resources.
  	}
- 	\oitem{Hot-Spot Features (HS):\label{lab:HS}}{
- 		Based on \cite{FeatureCohesioninSPL, CanWeAvoidHighCoupling?} \citet{AutomatedFeatureDetectionSiegmund2012} assume that hot spot features exist. \inlineQuote{[...] There are usually a few features that interact with	many features and there are many features that interact only with few features.}, these features are the hot spot features.
+ 	\oitem{Hot-Spot Features Heuristic(HS):\label{lab:HS}}{
+ 		Based on \cite{FeatureCohesioninSPL} and \cite{CanWeAvoidHighCoupling?} \citet{AutomatedFeatureDetectionSiegmund2012} assume that hot spot features exist. At last these specific type of interactions are findable too.
  	}
  \end{itemize}
-Using a SAT-Solver an implication graph as seen in \autoref{fig:ImplicationTree} is generated. Each implication chain in this tree should have at least one interacting feature. When analysing the tree each chain is walked from the top down. The three heuristics will be applied in the order of PW $\rightarrow$ HO $\rightarrow$HS.  
 
-\begin{wrapfigure}{l}{0.5\textwidth}
-%\setlength\belowcaptionskip{-\baselineskip}
-\includesvg[width = 0.5\textwidth]{figures/ImplicationTree}
-\captionsetup{width=0.95\linewidth}
-\caption{Implication tree example found in \cite{AutomatedFeatureDetectionSiegmund2012} }
-\label{fig:ImplicationTree}
+\setlength\intextsep{0pt}
+\begin{wrapfigure}[13]{l}{0.5\textwidth}
+	\includegraphics[page=6,clip,trim=3.3cm 21cm 12.7cm 2.8cm,width=\linewidth]{"Paper/Predicting performance via automated feature-interaction detection".pdf}
+	\captionsetup{width=0.95\linewidth}
+	\caption{Implication tree example found in \cite{AutomatedFeatureDetectionSiegmund2012}. }
+	\label{fig:ImplicationTree}
 \end{wrapfigure}
 
-First the influence of every feature on another chain is measured (\hyperref[lab:PW]{PW-heuristic}). In the example of \autoref{fig:ImplicationTree} the interactions would be measured in this order:\inlineQuote{$F1\#F6, F1\#F7, F4\#F6,\\ F4\#F7, F6\#F11,F7\#F11,F1\#F11,\\ F4\#F11$}\cite{AutomatedFeatureDetectionSiegmund2012}. If an interaction impact $\Delta a\#b_C$ exceeds a threshold it is recorded.
+The three heuristics will be applied in the order of PW $\rightarrow$ HO $\rightarrow$ HS and use the data provided by the previous ones. Using a SAT-Solver an implication-graph as seen in \autoref{fig:ImplicationTree} is generated. Each implication-chain in this tree should have at least one interacting feature. When analysing the tree each chain is walked from the top down.
 
-Secondly, the \hyperref[lab:HO]{higher order interaction heuristic} is applied. Higher order interactions can be relatively easily found by looking hat the results of the PW-Heuristik. Three features that interact pair-wise are likely to interact in a third order interaction. For example, looking at features $a$, $b$ and $c$- If $\Delta a\#b_{C1}$ and $\Delta b\#c_{C2}$ have been recorded $\{a\#b, b\#c, a\#c\}$ all have to be non zero to find a third order interaction. Interactions with and order higher than three are not considered to prevent too many measurements.
+First the influence of every feature on another chain is measured (\hyperref[lab:PW]{PW-heuristic}). In the example of \autoref{fig:ImplicationTree} the interactions would be measured in this order: $F1\#F6$,$ F1\#F7$,$ F4\#F6$, $F4\#F7$, $F6\#F11$, $F7\#F11$, $F1\#F11$, $F4\#F11$. Once an interaction impact exceeds a threshold it is recorded.
 
-Lastly Hot-Spot features are detected (\hyperref[lab:HS]{HS-heuristic}). This is done by counting the interactions per feature. If the number of interactions of a feature is above a certain threshold (e.g. the arithmetic mean) it is categorized as a Hot-Spot feature. Based on the hotspot features further third order interactions are explored. Again higher order interactions are not considered to prevent too many measurements. \\
+Secondly, the \hyperref[lab:HO]{higher order interaction heuristic} can be applied. Seconded order interactions can be relatively easily found by looking hat the results of the PW-Heuristik. Three features that interact pair-wise are likely to interact in a third order interaction. For example, looking at features $a$, $b$ and $c$. If $\Delta a\#b_{C1}$ and $\Delta b\#c_{C2}$ have been recorded, $\{a\#b, b\#c, a\#c\}$ all have to be non-zero to find a third order interaction. Interactions with and order higher than three are not considered to prevent too many measurements.
+
+Lastly, Hot-Spot features may be detected (\hyperref[lab:HS]{HS-heuristic}). This is done by counting the interactions per feature. If the number of interactions of a feature is above a certain threshold (e.g. the arithmetic mean) it is categorized as a Hot-Spot feature. Based on these hotspot features further third order interactions are explored. Again higher order interactions are not considered. \\
 After applying the three heuristics all detected interacting features or feature combinations are assigned a $\Delta$ to represent their performance influence on the program.
 
 \begin{wrapfigure}{r}{.5\textwidth}
 	\centering
-	\setlength\belowcaptionskip{-2\baselineskip}
-	\captionof{table}{Results of average accurcy found by \citet{AutomatedFeatureDetectionSiegmund2012}}
+	\captionof{table}{Results of average accurcy found by \citet{AutomatedFeatureDetectionSiegmund2012}.}
 	\label{tab:avgAccuracy}
 	\begin{tabular}{c|c}
 		Approach&avg. Accuracy\\\midrule[1pt]
@@ -107,5 +88,8 @@ After applying the three heuristics all detected interacting features or feature
 		HO&93.7\%\\\hline
 		HS&95.4\%\\\hline
 	\end{tabular}
+	\vspace{\baselineskip}
 \end{wrapfigure}\noindent
-\citet{AutomatedFeatureDetectionSiegmund2012} tested AFID on six different SPLs (Berkely DB C,Berkely DB Java, Apache, SQLite, LLVM, x264). Each program was tested under four approaches: Feature-Wise, Pair-Wise, Higher-Order, Hot-Spot (in this order). Each approach also used the data found by the previous one. Accordingly the results get better the more heuristics are used as seen in \cref{tab:avgAccuracy}. Using only the FW approach means that interactions (and the heuristics) are not considered, yet the accuracy is already at about 80\% on average. A significant improvement can be made by using the PW heuristic. It uses on average 8.5 times more measurements than the FW approach but improves the accuracy to 91\%. Using the HO or HS approach improves the accuracy further by about 2-4\%. However for Apache using the HO over the PW approach even deteriorated the average result by 3.9\% and doubled the standard variation. As already mentioned using the HS approach gives the best accuracy this is true for all 6 tested applications. \citet{AutomatedFeatureDetectionSiegmund2012} also notes that analysing SQLite only needed about 0.1\% of all possible configurations. This hints to the good scalability of AFID.
+As mentioned, \citet{AutomatedFeatureDetectionSiegmund2012} tested \AFID~on 6 different software systems. Each program was tested under four approaches: Feature-Wise, Pair-Wise, Higher-Order, Hot-Spot (in this order). Each approach also used the data found by the previous one. Accordingly, the results get better the more heuristics are used as \cref{tab:avgAccuracy} shows. Using only the FW-heuristic means, that interactions are not considered at all. However, the accuracy when using this heuristic is already at 80\% on average. A significant improvement can be made by using the PW heuristic. It uses  8.5 times more measurements than the FW-heuristic on average, but improves the accuracy to 91\%. Using the HO- or HS-heuristics improves the accuracy further by 2-4\%. However, for Apache, using the HO over the PW heuristic even deteriorated the average result by 3.9\% and doubled the standard deviation. As expected, using the HS-heuristic gives the best accuracy for all 6 tested applications. \citet{AutomatedFeatureDetectionSiegmund2012} also notes that analysing SQLite only needed about 0.1\% of all possible configurations. This hints to the good scalability of \AFID.
+
+In conclusion \AFID~measures only a quadric amount of configurations to find the performance model of the software system. Depending on which heuristics are chosen, the accuracy and measurement costs can variate. \citet{AutomatedFeatureDetectionSiegmund2012} implemented this approach in their tool SPLConquerer\footnote{https://github.com/se-passau/SPLConqueror}. This tool was also used to produce all experiment results.

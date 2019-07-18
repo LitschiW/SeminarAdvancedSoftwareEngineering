@@ -1,26 +1,14 @@
-Intro
-    importance of configurations
-    impact of diffrent configurations
-
-Problem definition
-    looking at different sampling strategies
-
-Predicting performance
-    definitons
-        - feature/parameters/options
-        - configurations
-        - Accuracy/MeanError
-        - sample
-    general approach
-    presented approaches (short overview)
-
-    brute force
     
-    AFID (simplified)
-
-    Insertion: CART
-
-    Random Sampling
-    Distance based Sampling
-
+    CESAMPLES
+        General setup
+            general process
+            perfromance model is cart
+            sample picking
+            
+    
     Comparisson of Methods
+
+    Other Sampling 
+        t-wise sampling
+
+    Future/Current Research

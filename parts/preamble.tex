@@ -7,7 +7,7 @@
 \usepackage[utf8]{inputenc}
 
 %% Zitate
-\usepackage[numbers]{natbib}
+\usepackage[numbers,sort]{natbib}
 \bibliographystyle{abbrvnat}
 %\bibliographystyle{dinat}
 %\bibliographystyle{plainnat}
@@ -66,14 +66,15 @@
 \providecommand*{\toclevel@title}{0}
 \makeatother
 
-%% Grafiken
-\usepackage[pdftex]{graphicx}
-\DeclareGraphicsExtensions{.pdf,.jpg,.png}
-
 %% Mathe
 \usepackage{amsmath}
 \usepackage{amssymb}
 \allowdisplaybreaks
+
+%% Grafiken
+\usepackage[pdftex]{graphicx}
+\DeclareGraphicsExtensions{.pdf,.jpg,.png}
+
 
 %% Listings
 \usepackage{listings}
@@ -108,9 +109,10 @@
 \usepackage{multicol}
 \usepackage{makecell}
 
+
 %figure and table caption setup
 \usepackage{caption}
-\captionsetup{labelfont=bf,format = hang }
+\captionsetup{labelfont=bf,format = hang,justification=raggedright }
 \captionsetup[subfigure]{format = hang, labelfont=bf, position=b}
 \usepackage{subcaption}
 

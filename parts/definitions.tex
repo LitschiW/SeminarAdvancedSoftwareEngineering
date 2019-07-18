@@ -1,16 +1,19 @@
 \section{Definitions}
 
-Before the actual approaches are discussed it is important to pin point the definitions of terms which are used in this paper.
+Before the actual approaches are discussed it is important to pinpoint the definitions of terms which are used in this paper.
 
-This paper often uses the terms \inlineQuote{parameters}, (configuration-)\inlineQuote{options} or \inlineQuote{features}. These terms are all equivalent and describe ways to adjust and optimize functional and non-functional properties of a software system \cite{DistanceBasedSampling2019}.
-One can divide into different types of options. Binary options usually have a value of 0 or 1 and describe the activation of a feature. Non-binary options support a wider range of values. For example this could be a setting for the stack-size allowed for a program. Non-Numeric options support the input of text. Those could be paths or other addresses.
+This paper often uses the terms \inlineQuote{parameters}, (configuration) \inlineQuote{options} or \inlineQuote{features}. These terms are all equivalent and describe ways to adjust and optimize functional and non-functional properties of a software system \cite{DistanceBasedSampling2019}.
+One can divide into different types of options. Binary options usually have a value of 0 or 1 and describe the activation of a feature. Non-binary options support a wider range of values. For example this could be a setting for the stack-size allowed for a program. Non-numeric options support the input of text. Those could be paths or other addresses.
 The set of all configuration options is denoted as $\mathcal{O}$.
 
-
-A \textit{configuration} can be defined in multiple different ways. \citet{DistanceBasedSampling2019} define a configuration as a function $c : \mathcal{O} \rightarrow \{0,1\}$. It assigns a 1 to each element of $\mathcal{O}$ that is selected and a 0 to those which are not used.
-\citet{FasterDiscoveryofFasterSystemConfigurationsSiegmund2017} and \cite{VariabilityAwarePerformancePredictionJianmeiSigmundApel} have a similar approach. But instead of using a function to describe $c$ they use a vector or a n-tupel over $\mathbb{Z}^+_2(= \{0,1\})$. Each position of those enumerations is associated with exactly one feature. As in \cite{DistanceBasedSampling2019} a 1 indicates an activation of a feature and a 0 means that the feature is not used. These definitions obviously describes binary options only, but can be expanded to support non-binary options by using the codomain of $\mathbb{N}_0$ instead of $\{0,1\}$.
+A \textit{configuration} can be defined in multiple different ways. \citet{DistanceBasedSampling2019} define a configuration as a function $c : \mathcal{O} \rightarrow \{0,1\}$. It assigns a 1 to each element of $\mathcal{O}$ that is selected and a 0 to those which are not used. \citet{VariabilityAwarePerformancePredictionJianmeiSigmundApel} and
+\citet{FasterDiscoveryofFasterSystemConfigurationsSiegmund2017} have a similar approach. But instead of using a function to describe $c$ they use a vector or an n-tuple over $\mathbb{Z}^+_2(= \{0,1\})$. Each position of those enumerations is associated with exactly one feature. As in \citet{DistanceBasedSampling2019} a 1 indicates an activation of a feature and a 0 means that the feature is not used. These definitions obviously describes binary options only, but can be expanded to support non-binary options by using the co-domain of $\mathbb{N}_0$ instead of $\{0,1\}$.
 
 The \textit{configuration space} describes all valid configurations of a system. It is denoted as $\mathcal{C}$.
 
-A \textit{sample} is the subset of a \textit{configuration space} that contains all configurations that are complied and measured during the process of sampling and learning.
+A \textit{sample} is the subset of a \textit{configuration space} that contains all configurations that are complied and measured during the process of sampling and learning. It may also contain the measured performance scores for each configuration.
 
+To describe the quality of an approach an \textit{accuracy} metric is often used. The \textit{accuracy} is defined as 1-\textit{fault rate}. And in turn the fault rate (or error rate) is defined as 
+\begin{equation}
+	\text{fault rate}= \frac{|actual-predicted|}{actual}.
+\end{equation} This definition can be found in \cite{FasterDiscoveryofFasterSystemConfigurationsSiegmund2017} and \cite{AutomatedFeatureDetectionSiegmund2012}.
