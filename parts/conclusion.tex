@@ -1,21 +1,30 @@
-\section{Conclusion}
-
-\citet{FasterDiscoveryofFasterSystemConfigurationsSiegmund2017} provide a good overview over the presented approches. It can be found in \cref{fig:ConclusionPerformanceOverview}. 
-Event though Sarkar's approach (which was not covered by this paper) was rated best in 4 of the 6 case studies it needs significantly larger samples to do so. In the case of SQLite the WHAT needs about 15 times less evaluations to get a result that differs only by 2\%.
-Siegmunds's approach (\cite{AutomatedFeatureDetectionSiegmund2012}) is in last place on 4 occasions and has the greatest standard variation in almost all cases. One might argue that \AFID is the worst of the presented approaches since it does have worse predictions than the others in most cases and always uses the second most (in 5 out of 6 cases) or most evaluations.
-The table also demonstrates that Guo's approach (\cite{VariabilityAwarePerformancePredictionJianmeiSigmundApel}) is very inconsistent for small sample size. Guo(2N) has significantly worse predictions than other methods when its analysing Berkley DB C (18 Features) or Apache (9 Features). However, when looking at Berkley DB Java (26) or LLVM (11) it has an acceptable mean error rate.
-Further more its also visible that the side of \WHAT's usage of spectral learning lives up to its expectations. The standard deviation of \WHAT is significantly lower than its competitors on 4 occasions. In the 2 left cases it sits in between Guo's and Siegmund's approaches.
-
-In the end none of the presented methods has a edge over the others. Some need too large of a sample size and some are just not reliable or generally feasible. Gou's and Sarkar's approaches can do well under the usage of large sample sizes. Siegmund's approach is rather robust but suffers from large standard deviations the larger a system gets. \WHAT seems to be the most consistent out of the 3 candidates. It has the lowest standard deviation and a rather low mean error fault rate on most tested occasions. Furthermore it needs the least samples to do so.
-At last the decision on which approach one should use to learn and predict the performance of a configurable software system should be done based on the properties of a software system. By looking at the properties of the in this paper presented approaches a suitable method should be findable.
-
-
+\section{Comparison of methods}
 \begin{figure}[t]
 	\centering
-	%todo durch svg ersetzen
-	\includegraphics[width=\linewidth]{figures/OverviewPerformance}
-	\caption{Overview and comparison over the mean error rate (mean MRE, $\mu$) and the standard deviation ($\sigma$) of the presented approaches. Siegmund stands for \AFID and Guo for \textit{Variablity aware performance prediction}. Sarkar's approach was not discussed in this paper.
-		 \inlineQuote{[The column] Rank is computed using Scott-Knott, bootstrap 95\% confidence, and	A12 test.} \cite{FasterDiscoveryofFasterSystemConfigurationsSiegmund2017}}
-	\label{fig:ConclusionPerformanceOverview}
+	\captionof{table}{Measureing results of \citet{FasterDiscoveryofFasterSystemConfigurationsSiegmund2017} when comparing the methods of, \AFID(Siegmund), \VAPP(Gou), \WHAT~and projective sampling in combination with CARTs(Sarkar). The \textit{Rank} column is computed using Scott-Knott, bootstrap 95\% confidence, and A12 test.}	
+	\label{tab:ConclusionPerformanceOverview}
+	\vspace{-.5\baselineskip}
+	\includegraphics[page=19, clip=true, trim=2.5cm 13.8cm 6.8cm 3.1cm, width=.9\linewidth]{"Paper/Faster Discovery of Faster System Configurations with Spectral Learning".pdf}
+	\vspace{-1\baselineskip}	
 \end{figure}
+\cref{tab:ConclusionPerformanceOverview} displays the results of an experiment conducted by \citet{FasterDiscoveryofFasterSystemConfigurationsSiegmund2017} to compare different prediction methods. The table shows some characteristic properties of each approach. For example is the standard deviation of \WHAT~only 2.98\%. Having a low standard deviation was one fo the goals of \What. 
+
+Siegmund's approach of \AFID was ranked last on 4 occasions. Its accuracy and standard deviation are the worst in most cases. It mostly ranks lower than \VAPP with the same sample size (Guo(PW)). \WHAT~is the oldest of the presented approaches and its low ranking can be seen as a demonstration on how prediction algorithms evolved over time.
+
+Sarkar's approach of using cost-efficient sampling in combination with CARTs ranked best in four out of the six cases. In the remaining twp cases it had still an acceptable accuracy. But this consistent high accuracy comes with the cost of using larger samples then other methods. In the case of SQLite, the sample was 15 times larger than the sample of the next best approach \WHAT. 
+
+
+In conclusion 
+
+
+If time and resources are available or a program is sufficiently small, \textit{brute force} can be applied to get perfect results.\textsl{} 
+
+
+
+
 \FloatBarrier
+\section{Further and Future Work}
+
+
+
+\section{Conclusion}
