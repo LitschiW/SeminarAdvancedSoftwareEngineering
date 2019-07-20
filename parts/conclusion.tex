@@ -1,4 +1,5 @@
-\section{Comparison of methods}
+% !TeX spellcheck = en_US
+\section{Comparison}
 \begin{figure}[t]
 	\centering
 	\captionof{table}{Measureing results of \citet{FasterDiscoveryofFasterSystemConfigurationsSiegmund2017} when comparing the methods of, \AFID(Siegmund), \VAPP(Gou), \WHAT~and projective sampling in combination with CARTs (Sarkar). The \textit{Rank} column is computed using Scott-Knott, bootstrap 95\% confidence, and A12 test \cite{FasterDiscoveryofFasterSystemConfigurationsSiegmund2017}.}
@@ -13,16 +14,32 @@ Siegmund's approach of \AFID~was ranked last on 4 occasions. Its accuracy and st
 
 Both versions of \VAPP~appear inconsistently with regard to their rank. Gou(PW) ranks lower than Gou(2N) in half of the six occasions. Generally the version which used a larger sample had a slightly better accuracy, but also suffered from a larger standard deviation. The results show that \VAPP's predictions might not be consistent for not sufficiently large enough samples. This could be attributed to the complete randomness of configuration picking.
 
-Sarkar's approach of using cost-efficient sampling in combination with CARTs ranked best in four out of the six cases. In the remaining two cases it still had an acceptable accuracy. But this consistent high accuracy comes with the cost of using larger samples then other methods. In the case of SQLite, the sample was 15 times larger than the sample of the next best approach \WHAT. 
+Sarkar's approach of using cost-efficient sampling in combination with CARTs ranked best in four out of the six cases. In the remaining two cases it still had an acceptable accuracy. But this consistent high accuracy comes with the cost of using larger samples then other methods. In the case of SQLite, the optimized sample size was 15 times larger than the sample of the next best approach \WHAT. 
 
-Considering all tests \WHAT~had an average standard deviation of only 2.98\%. Having such a low standard deviation was the main goal of \WHAT. When comparing it to other methods, it consistently has a below average standard deviation and an above average accuracy. Since \WHAT is also the most recent approach, this further confirms the progress that was made in recent years.
+Considering all tests \WHAT~had an average standard deviation of only 2.98\%. Having such a low standard deviation was the main goal of \WHAT. When comparing it to other methods, it consistently has a below average standard deviation and an above average accuracy whilst using a smaller sample. Since \WHAT~is also the most recent approach, this further confirms the progress that was made in recent years.
 
 \FloatBarrier
 \section{Continuing, Related and Future Work}
 
+This paper covered different types of prediction approaches developed by N. Siegmund et al.\\Many other techniques can be found that are related or used for performance prediction of configurable software systems. Some notable continuing techniques are:
+\begin{itemize}[leftmargin=*,align=left]
+	\item[\textbf{T-Wise Sampling}] picks configurations that contain every combination of T different features to ensure a diverse sample \cite{T-WiseSampling}.	
+	\item[\textbf{Fourier Learning}] theoretically guarantees a accuracy level whilst using a minimal sample. It is based on the Fourier transform and was developed by \citet{FourierLearning}.
+	\item[\textbf{Transfer Learning}] uses prediction models that are generated based on simulations of the observed system. These models then get transferred to a predictor of the real system to improve its predictions \cite{TransferLearningforImprovingModelPredictionsJamshidiVKSK17}.	
+\end{itemize}
 
+\noindent
+As shown, a lot of different prediction approaches with satisfying accuracies are available. To further improve them \citet{FasterDiscoveryofFasterSystemConfigurationsSiegmund2017} propose two different starting points:
+ \begin{itemize}
+ 	 \item  All presented approaches consider all features as equally important. But in some systems a certain option might has a higher priority than others. Hence, weighting techniques for features could improve prediction results.
+ 	 \item Currently, the sizes of samples are mostly picked manually. This can lead to problems with adaptability and scalability. A future field of research would be the integration of a dynamic progressive sampling techniques, as replacement for the typically used static sample size.
+ \end{itemize}
+
+Furthermore, \citet{PerformanceInflunceModels_Sigmund_2015} note that finding valid configurations, for binary and non-binary options is still a problem with exponential complexity. Improvements on related algorithms would lead to a faster discovery of the \textit{configuration space}, test and training sets.
+
+Most approaches concentrate on binary and numeric options only. \citet{PerformanceInflunceModels_Sigmund_2015} show that both can be integrated smoothly, into a prediction approach. However, non-numeric options like paths are not mentioned much in the literature. For example, a database-path can arguably have a huge impact on the performance of a software system. The extension or development of techniques that support non-numeric option could improve predictions for more complex software systems that depend on those kinds of options.
 
 \section{Conclusion}
 
-There are many techniques for learning and predicting the performance of a configurable software system. This paper had a look at different approaches developed by N. Siegmund et al. In the end, if enough time and resources are available or a program is sufficiently small, \textit{brute force} can be applied to get perfect prediction results. But since \textit{brute force} does not scale well, more sophisticated methods were developed. Most of those methods produce acceptable results of over 90\% accuracy in many cases. But there is no 'best approach' to this problem. Which method a predictor should use is always a question of finding a balance between the size of the sample, the accuracy of the predictions and the applicability of the approach.
+There are many techniques for learning and predicting the performance of a configurable software system. This paper had a look at different approaches developed by N. Siegmund et al. It was quickly determined that, if enough time and resources are available or a program is sufficiently small, \textit{brute force} can be applied to get perfect prediction results. But since \textit{brute force} does not scale well, more sophisticated methods were developed. Most of those methods produce acceptable results with over 90\% accuracy in many cases. But there is no best approach. Each technique has its own advantages and disadvantages that make it unique. \AFID~has well explainable results, \VAPP~is easy to implement, \WHAT~has a very low standard deviation and when using cost-efficient sampling extremely accurate predictions are possible. Which method a predictor should use is always a question of finding a balance between the possible size of the sample, the targeted accuracy and the applicability of the approach on the current system.
 

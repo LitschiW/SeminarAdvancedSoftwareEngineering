@@ -1,27 +1,21 @@
 \subsection{Cost-Efficient Sampling}\label{sec:CESampling}
 Just how its name suggests, cost-efficient sampling tires to minimize the cost-accuracy rate of a prediction approach. This is done by trying to find a (near) optimal sample size $n^*$ for a given program.\\
-\citet{CostEfficientSampling_Gou_Siegmund_2015} apply two different sampling techniques to reach this goal. Their general structure is displayed in \cref{fig:CEGeneral}.\\
-\FloatBarrier
+\citet{CostEfficientSampling_Gou_Siegmund_2015} apply two different sampling techniques to reach this goal. Their general structure is displayed in \cref{fig:CEGeneral}.
+\newpage
 \begin{figure}[h]
 	\centering
-	\scalebox{.8}{
- 		\includesvg{figures/CEGeneral}
- 	}
+	\includesvg[scale=.8,inkscapelatex=false]{figures/CEGeneral}
  	\caption{General procedure of cost-efficient sampling to find an optimal sized $n^*$.}
  	\label{fig:CEGeneral}
 \end{figure}
-\begin{wrapfigure}{r}{.45\textwidth}	
+\begin{wrapfigure}[21]{R}{.45\textwidth}	
 	\includegraphics[page=2,clip,trim=12.8cm 16cm 3cm 6.2cm, width=\linewidth]{"Paper/Cost-Efficient Sampling for Performance Prediction of Configurable Systems".pdf}
 	\captionsetup{width=0.9\linewidth}
-	\setlength\belowcaptionskip{2\baselineskip}
-	\captionof{figure}{ A typical learnig curve can be divided into three phases: 1. steep incline; 2. gradual incline; 3. sturation/plateau. \cite{CostEfficientSampling_Gou_Siegmund_2015} }
+	%\setlength\belowcaptionskip{2\baselineskip}
+	\captionof{figure}{ A typical learnig curve can be divided into three phases:\\1. steep incline;\\2. gradual incline;\\3. plateau \cite{CostEfficientSampling_Gou_Siegmund_2015}.}
 	\label{fig:learningcurve}
 \end{wrapfigure}
-
-
-Firstly a test and a training set are picked from $\mathcal{C}$.
-
-Then, in each iteration of this process, a performance model is build. The used sample is taken from the training set and is increased each iteration. This makes the respective performance model more accurate in each iteration. The error rate of each created performance model is recorded. Together with the size of the used sample a point in a graph is created. As iterations continue this graph resembles an approximation of the learning curve of the performance model of the system. A curve as displayed in \cref{fig:learningcurve} is created. This process continues until  a stopping criterion is met. At this point $n^*$ was already found or can be calculated based on the given curve and a cost-function. An optimal sample size should provide a good accuracy without being too large. So naturally $n^*$ lies somewhere at the beginning of the third phase. 
+Firstly a test and a training set are picked from $\mathcal{C}$. Then, in each iteration of this process, a performance model is build. The used sample is taken from the training set and is increased each iteration. This makes the respective performance model more accurate in each iteration. The error rate of each created performance model is recorded. Together with the size of the used sample a point in a graph is created. As iterations continue this graph resembles an approximation of the learning curve of the performance model of the system. A curve as displayed in \cref{fig:learningcurve} is created. This process continues until  a stopping criterion is met. At this point $n^*$ was already found or can be calculated based on the given curve and a cost-function. An optimal sample size should provide a good accuracy without being too large. Naturally $n^*$ lies somewhere at the beginning of the third phase.\\
 Four different types of costs are considered by \citet{CostEfficientSampling_Gou_Siegmund_2015}:
 \begin{equation}
 \begin{split}
@@ -39,10 +33,9 @@ TotalCost(n) = 2n + \epsilon_n \cdot |S| \cdot R \label{eq:costfunction}
 
 $S$ is a \textit{score set} that contains all configurations, whose performance value will be predicted with the current model. $R$ is tuning parameter for the measuring cost of a training set.
 
-\textit{Progressive sampling} is the first technique that applies this process. It observes either the learning curve's progress or the related cost-function.
+The two sampling strategies based on this are \textit{progressive sampling} and \textit{projective sampling}. Both approach the search for $n^*$ differently.
 
-\textit{Projective sampling} tries to generate the first part of the learning curve. Then function-fitting is applied to find and generate the remainder of the curve. Based on this fitted function, $n^*$ can be calculated.
-
+\setlength\intextsep{0pt}
 \subsubsection{Progressive sampling}
 \begin{wrapfigure}[28]{l}{.4\linewidth}
 	\includegraphics[page=4,clip,trim=3.7cm 16.3cm 13.0cm 1.8cm, width=\linewidth]{"Paper/Cost-Efficient Sampling for Performance Prediction of Configurable Systems".pdf}
@@ -64,17 +57,21 @@ For \textit{progressive sampling} there are two types of stopping criteria:
 
 \subsubsection{Projective sampling} tires to find the actual function behind the learning curve of the performance model of the current system. Typical equations that describe a learning curve and the respective minimum of the cost-function can be found in \cref{tab:learningCurveFunction}.
 Unlike in \textit{progressive Sampling} the size of the sample set is increased by only a small amount each iteration. The experiments conducted by \citet{CostEfficientSampling_Gou_Siegmund_2015} show that even an increment by the size of 1 is enough to get satisfying results. This time the iterative process is stopped once a certain accuracy is reached. Now an algorithm tires to fit the generated points onto the four functions shown in \cref{tab:learningCurveFunction}. The best fitted function is considered the learning curve of the current performance model. Once this function is found, it can be substituted into to cost-function \cref{eq:costfunction} and the minimum of which can be calculated. These minimums are also shown in \cref{tab:learningCurveFunction}.
+\setlength\intextsep{\baselineskip}
 \begin{figure}[h]
 	\centering
 	\captionof{table}{Functional representation of typical learning curves and thier optimal sample size based on the given cost function \cite{CostEfficientSampling_Gou_Siegmund_2015}.}
 	\label{tab:learningCurveFunction}
 	\includegraphics[page=5,clip,trim=1.9cm 22.8cm 11.25cm 2.7cm, width=1\linewidth]{"Paper/Cost-Efficient Sampling for Performance Prediction of Configurable Systems".pdf}
 \end{figure}
-
-Based on the found minimum other techniques that do not have a fixed sample size like \VAPP can be used. In the experiments conducted by \citet{CostEfficientSampling_Gou_Siegmund_2015} \textit{projective sampling} was better than \textit{progressive sampling} in every case. For each of the six tested software systems \textit{projective sampling} had a better accuracy whilst having a lower cost than \textit{progressive sampling}.\\
+\noindent
+Based on the found minimum other techniques that do not have a fixed sample size like \VAPP~can be used. In the experiments conducted by \citet{CostEfficientSampling_Gou_Siegmund_2015} \textit{projective sampling} was better than \textit{progressive sampling} in every case. For each of the six tested software systems \textit{projective sampling} had a better accuracy whilst having a lower cost than \textit{progressive sampling}.\\
 For both strategies it is important, that the initial sample generation/picking is successful. Therefore, the picking of representative configurations as $n_i$ samples of each iteration is key. 
 \citet{CostEfficientSampling_Gou_Siegmund_2015} use a heuristic based on feature frequencies to optimize the selection. As a general guideline each feature should be selected and deselcted once at least. Looking at a set of configurations $S$ the feature frequency of a feature $i$ is defined as:
 \begin{equation}
 	1 \leq \sum_{j\in S} x_i(j) < |S|
 \end{equation}
 Where $x_i\in\{0,1\}$ describes, whether the feature $i$ is selected in the configuration $j$ or not. This feature frequency is recorded for whilst creating a new sample. In case a certain threshold is reached, the sample generation will be stopped.
+
+
+\subsubsection[Results]{\textnormal{The results}} of the experiments conducted by \citet{CostEfficientSampling_Gou_Siegmund_2015} show that projective sampling is superior to progressive sampling in all cases. It had a lower costs and a higher accuracy when predicting configurations of the six tested programs. After the optimal sample size was found \citet{CostEfficientSampling_Gou_Siegmund_2015} used \VAPP~with an $n^*$ sized sample to get the prediction results. The accuracy of this approach reached up to 99\% and had an average of 94.5\%.

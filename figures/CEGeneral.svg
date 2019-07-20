@@ -224,16 +224,16 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="1.979899"
-     inkscape:cx="281.69174"
-     inkscape:cy="1002.7916"
+     inkscape:cx="200.37446"
+     inkscape:cy="901.77635"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
      showgrid="false"
      inkscape:snap-midpoints="false"
      showguides="false"
-     inkscape:window-width="1920"
-     inkscape:window-height="1057"
-     inkscape:window-x="-8"
+     inkscape:window-width="1280"
+     inkscape:window-height="1001"
+     inkscape:window-x="1912"
      inkscape:window-y="-8"
      inkscape:window-maximized="1" />
   <metadata
@@ -244,7 +244,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -378,9 +378,9 @@
          x="82.164642"
          y="58.100227"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.06374979px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;writing-mode:lr-tb;text-anchor:middle;stroke-width:0.09006855"
-         id="tspan11825">Pick up to n$_i$<tspan
-   style="font-size:64.99999762%;baseline-shift:sub"
-   id="tspan12433" /></tspan><tspan
+         id="tspan11825">Pick up to n<tspan
+   style="font-size:65%;baseline-shift:sub"
+   id="tspan1057">i</tspan></tspan><tspan
          sodipodi:role="line"
          x="82.164642"
          y="61.929916"
@@ -419,15 +419,17 @@
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.06369996px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-position:super;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;writing-mode:lr-tb;text-anchor:middle;stroke-width:0.09006856"
          id="tspan11761-1">Measure</tspan><tspan
          sodipodi:role="line"
-         x="26.096451"
+         x="26.096449"
          y="93.039024"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.06369996px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-position:super;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;writing-mode:lr-tb;text-anchor:middle;stroke-width:0.09006856"
          id="tspan11792"><tspan
    style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.06369996px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-position:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;writing-mode:lr-tb;text-anchor:middle"
-   id="tspan11835">error $\epsilon_{curr}$</tspan>  </tspan><tspan
+   id="tspan11835">error ϵ<tspan
+   style="font-size:65%;baseline-shift:sub"
+   id="tspan1053">curr</tspan></tspan>  </tspan><tspan
          sodipodi:role="line"
          x="25.557907"
-         y="96.868645"
+         y="96.904114"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.06369996px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-position:super;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;writing-mode:lr-tb;text-anchor:middle;stroke-width:0.09006856"
          id="tspan11794">of the CART</tspan></text>
     <text
@@ -440,15 +442,19 @@
          x="14.554962"
          y="56.842316"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.06374979px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;writing-mode:lr-tb;text-anchor:middle;stroke-width:0.09006856"
-         id="tspan11794-2">Add (n$_i$,$\epsilon_{curr}$)</tspan><tspan
+         id="tspan11794-2">Add (n<tspan
+   style="font-size:64.99999762%;baseline-shift:sub"
+   id="tspan1049">i</tspan>,ϵ<tspan
+   style="font-size:65%;baseline-shift:sub"
+   id="tspan1051">curr</tspan>)</tspan><tspan
          sodipodi:role="line"
          x="14.554962"
-         y="60.672005"
+         y="60.70747"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.06374979px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;writing-mode:lr-tb;text-anchor:middle;stroke-width:0.09006856"
          id="tspan11851">to the current</tspan><tspan
          sodipodi:role="line"
          x="14.554962"
-         y="64.501694"
+         y="64.537155"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.06374979px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;writing-mode:lr-tb;text-anchor:middle;stroke-width:0.09006856"
          id="tspan11853">curve</tspan></text>
     <text
@@ -472,7 +478,7 @@
          id="tspan11837"
          x="64.917412"
          y="95.76992"
-         style="stroke-width:0.26458332"></tspan></text>
+         style="stroke-width:0.26458332" /></text>
     <text
        xml:space="preserve"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.18434191px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.09361374"
@@ -517,7 +523,7 @@
            height="544.47223"
            x="48.487324"
            y="52.768139" /></flowRegion><flowPara
-         id="flowPara12441"></flowPara></flowRoot>    <text
+         id="flowPara12441" /></flowRoot>    <text
        xml:space="preserve"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.18434191px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.09361374"
        x="75.466667"

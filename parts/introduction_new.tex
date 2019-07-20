@@ -36,12 +36,12 @@ The most straightforward  approach to this problem would be a \textit{brute-forc
 \end{figure}
 This paper will focus on showing different approaches and strategies to predicting the performance of a configurable software system. It will mainly discuss approaches developed by Norbert Siegmund et al. \cite{AutomatedFeatureDetectionSiegmund2012,VariabilityAwarePerformancePredictionJianmeiSigmundApel, CostEfficientSampling_Gou_Siegmund_2015, DistanceBasedSampling2019}. They will be explained and compared. More specifically, this paper will have a look at four different approaches besides \textit{brute-force}.
 
-The first discussed technique is \textit{Automated Feature Interaction Detection} (\AFID) \cite{AutomatedFeatureDetectionSiegmund2012}. The goal of this approach is to assign a performance influence value to each feature and feature interaction. This is done by observing and measuring the behaviour of certain configurations. 
+The first discussed technique is \textit{Automated Feature Interaction Detection} (\AFID) \cite{AutomatedFeatureDetectionSiegmund2012}. The goal of this approach is to assign a performance influence value to each feature and feature interaction. This is done by observing and measuring the behavior of certain configurations. 
 The other 4 approaches make use of a CART Tree as their learning choice but differ in the way they choose their sample.
  
 \textit{Variability Aware Performance Prediction} (\VAPP) \cite{VariabilityAwarePerformancePredictionJianmeiSigmundApel} uses random sampling to pick which configurations to compile and measure. 
 
-\WHAT~ \cite{DistanceBasedSampling2019}, tires a more mathematical way to find groups of similar configurations without actually measuring them. For this distance based clustering/sampling is used. 
+\WHAT~\cite{DistanceBasedSampling2019}, tires a more mathematical way to find groups of similar configurations without actually measuring them. For this distance based clustering/sampling is used. 
 
 The last two sampling approaches are proposed in the same paper by \citet{CostEfficientSampling_Gou_Siegmund_2015}. 
 

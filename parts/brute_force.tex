@@ -8,7 +8,6 @@ In one paper, \citet{AutomatedFeatureDetectionSiegmund2012} measured all valid c
 This changes once one takes a look at larger programs. Modern applications like Apache or MySQL can have hundreds of configuration parameters \cite{YouveGivenMeTooManyKnobs}. Another example was displayed by \citet{VAMOSConference}: SQLite has 77 features that can produce $3 \cdot 10^{77}$ valid configurations. Unfortunately, there is no evidence how the latter number was calculated. Yet, it can be assumed that at least the scale of this number in regard to the number of features is correct. This will be explained in the next paragraph. Coming back to the example: Assuming measuring (compiling + profiling) one configuration would take 5 minutes, a brute-force approach would take $2.5 \cdot 10^{76}$ hours. Obviously, this is not an acceptable duration.
 
 \begin{wrapfigure}{r}{0.5\textwidth}
-	%\setlength\belowcaptionskip{-\baselineskip}
 	\includegraphics[width = 0.5\textwidth]{presentation/figures/FeatureModel}
 	\captionsetup{width=0.95\linewidth}
 	\caption{An example of a feature model.}
@@ -34,12 +33,12 @@ Note that these logical expressions can also be applied to non-binary options. T
 		2, \text{Version2.1 selected}
 	\end{cases}
 \end{equation*}
-In this case, $V(C)$ would look like this:
+$V(C)$ would look like this, if Base is tertiary:
 \begin{equation*}
 		V(C)= (\text{Base} \Leftrightarrow 1 \lor \text{Base} \Leftrightarrow 2) \land \big((\text{Base} \Leftrightarrow 1) \Rightarrow \neg \text{DBServer}\big).
 \end{equation*}
-So it is established that set of valid configurations can be expressed as a logical formula.
-
-In this context the most interesting property of this formula is the scaling of the number of valid configurations in relation to the number of options. Without loss of generality, one can assume that a system only has numeric binary options. This can be done since all other types of options would just increase the overall number of options. However, already looking at binary options gives a satisfying result. Since naturally the total number of possible assignments for a logical expression is exponentially large, the number of valid configurations also lies in the exponential space of $\mathcal{O}(2^{\#options})$. In other words: a \textit{configuration space} that would have to measured for a \textit{brute force} approach would be exponentially large. That is the reason why brute-force does not scale well and more sophisticated methods are need for efficient predictions.
+\noindent
+In this context the most interesting property of this formula is the scaling of the number of valid configurations in relation to the number of options. Without loss of generality, one can assume that a system only has binary options. This can be done since all other types of options would just increase the overall number of options. However, already looking at binary options gives a satisfying result. Since naturally the total number of possible assignments for a logical expression is exponentially large, the number of valid configurations also lies in the exponential space of $\mathcal{O}(2^{\#options})$. In other words: a \textit{configuration space} that would have to measured for a \textit{brute force} approach would be exponentially large. 
+This exponential scaling is also the reason why brute-force does not scale well and more sophisticated methods are need for efficient predictions.
 
 

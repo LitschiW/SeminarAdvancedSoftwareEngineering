@@ -5,19 +5,19 @@ By learning about the performance difference of multiple configurations it is po
 	\item \hyperref[sec:AFID]{Automated Feature Interaction Detection} by \citet{AutomatedFeatureDetectionSiegmund2012},
 	\item an \hyperref[sec:VAPP]{incremental/statistical learning approach} by \citet{VariabilityAwarePerformancePredictionJianmeiSigmundApel},
 	\item \hyperref[sec:CESampling]{Cost efficient sampling by \citet{CostEfficientSampling_Gou_Siegmund_2015}},
-	\item \hyperref[sec:WHAT]{\textbf{WHAT}} a spectral learning approach by \citet{FasterDiscoveryofFasterSystemConfigurationsSiegmund2017},
+	\item \hyperref[sec:WHAT]{\WHAT~}a spectral learning approach by \citet{FasterDiscoveryofFasterSystemConfigurationsSiegmund2017},
 \end{itemize}
 
 \subsection{General Approach}
 
-\citet{VariabilityAwarePerformancePredictionJianmeiSigmundApel} defines two problems to be solved by prediction approaches:
+\citet{VariabilityAwarePerformancePredictionJianmeiSigmundApel} defines two problems that prediction approaches should solve:
 \begin{enumerate}
 	\item Predicting the performance of a not measured configurations.
 	\item Finding a function $f$ that shows the correlation between the properties of measured configurations and their performance value and that makes each predicted performance $f(\x)$ of a configuration $\x$ as close as possible to its actual performance.\\	
 	\begin{equation}
 	f : \mathcal{C} \rightarrow  \mathbb{R} \text{ such that} \sum_{(\x,y) \in S} L(y,f(\x)) \text{ is minimal}
 	\end{equation}\\
-	$S$ is a sample and	$L$ is a loss function to penalize errors in prediction. $(\x,y)$ is a pair of a configuration and its measured performance value. The function $f$ is sometimes called the \textit{performance model} of the system.
+	$S$ is a sample and	$L$ is a loss function to penalize errors in prediction. $(\x,y)$ is a pair of a configuration $\x$ and its measured performance value $y$. The function $f$ is also called the \textit{performance model} of the system.
 \end{enumerate}
 
 \noindent
